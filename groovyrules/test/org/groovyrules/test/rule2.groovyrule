@@ -1,0 +1,7 @@
+customer = data.get(0);
+invoice = data.get(1);
+if(invoice.status == "unpaid") { 
+	customer.creditLimit = 
+		customer.creditLimit - invoice.amount;
+	invoice.status = "paid";
+}

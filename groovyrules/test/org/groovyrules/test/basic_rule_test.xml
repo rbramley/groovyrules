@@ -1,0 +1,12 @@
+<!-- Meta-data about this rule execusion set -->
+
+<ruleexecutionset>
+	<name>Invoice Handling Rule Set</name>
+	<description>Handles invoices for customers</description>
+	<ruleroot>C:/Development/eclipse/workspace5/groovy.jsr94/bin/org/groovyrules/test</ruleroot>
+	<rules>
+		<rule>rule1.groovyrule</rule>
+		<rule>rule2.groovyrule</rule>
+	</rules>
+</ruleexecutionset>
+

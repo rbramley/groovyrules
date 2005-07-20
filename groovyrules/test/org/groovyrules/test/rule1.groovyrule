@@ -1,0 +1,5 @@
+customer = data.get(0);
+invoice = data.get(1);
+if(invoice.status == "unpaid" && invoice.amount > 500 ) { 
+	invoice.status = "excessive"; 
+}
