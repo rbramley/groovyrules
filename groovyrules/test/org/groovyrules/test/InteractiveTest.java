@@ -16,10 +16,6 @@ import javax.rules.admin.RuleAdministrator;
 import javax.rules.admin.RuleExecutionSet;
 
 import org.groovyrules.core.RuleServiceProviderImpl;
-import org.jcp.jsr94.tck.model.Customer;
-import org.jcp.jsr94.tck.model.CustomerImpl;
-import org.jcp.jsr94.tck.model.Invoice;
-import org.jcp.jsr94.tck.model.InvoiceImpl;
 
 
 /**
@@ -52,7 +48,7 @@ public class InteractiveTest {
 		RuleRuntime ruleRuntime = serviceProvider.getRuleRuntime();
 
 		// Create a Customer as specified by the TCK documentation.
-		Customer customer = new CustomerImpl("Fred");
+		Customer customer = new Customer("Fred");
 		customer.setCreditLimit(5000);
 		
 		int invoiceNum = 1;
@@ -73,7 +69,7 @@ public class InteractiveTest {
 			int invoiceAmount = Integer.parseInt(strAmount);
 			
 			// Create an Invoice as specified by the TCK documentation.
-			Invoice inputInvoice = new InvoiceImpl("Invoice " + invoiceNum++);
+			Invoice inputInvoice = new Invoice("Invoice " + invoiceNum++);
 			inputInvoice.setAmount(invoiceAmount);
 			
 			// Create a input list.

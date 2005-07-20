@@ -17,10 +17,6 @@ import javax.rules.admin.RuleExecutionSet;
 import junit.framework.TestCase;
 
 import org.groovyrules.core.RuleServiceProviderImpl;
-import org.jcp.jsr94.tck.model.Customer;
-import org.jcp.jsr94.tck.model.CustomerImpl;
-import org.jcp.jsr94.tck.model.Invoice;
-import org.jcp.jsr94.tck.model.InvoiceImpl;
 
 
 /**
@@ -77,11 +73,11 @@ public class BasicRuleTest extends TestCase {
 		assertNotNull(statelessRuleSession);
 
 		// Create a Customer as specified by the TCK documentation.
-		Customer inputCustomer = new CustomerImpl("test");
+		Customer inputCustomer = new Customer("test");
 		inputCustomer.setCreditLimit(5000);
 
 		// Create an Invoice as specified by the TCK documentation.
-		Invoice inputInvoice = new InvoiceImpl("Invoice 1");
+		Invoice inputInvoice = new Invoice("Invoice 1");
 		inputInvoice.setAmount(500);
 
 		// Create a input list.
