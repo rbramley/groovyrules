@@ -1,0 +1,125 @@
+<project name="groovyrules" default="dist">
+
+	<property name="src.dir" value="src"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="build.dir" value="build"/>
+	<property name="test.dir" value="test"/>
+	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="build.javadoc.dir" value="${build.dir}/javadoc"/>
+	<property name="build.test.dir" value="${build.dir}/test"/>
+	<property name="build.test.log.dir" value="${build.test.dir}/log"/>
+	<property name="dist.dir" value="dist"/>
+	<property name="dist.name" value="groovyrules"/>
+	
+	<path id="build.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="jsr94.jar"/>
+			<include name="groovy-all-*.jar"/>
+		</fileset>
+	</path>
+	
+	<path id="build.test.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="jsr94.jar"/>
+			<include name="groovy-all-*.jar"/>
+			<include name="junit.jar"/>			
+		</fileset>
+	</path>
+		
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${dist.dir}"/>		
+	</target>
+			
+	<target name="compile">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.classes.dir}"/>
+		<javac srcdir="${src.dir}"
+         		destdir="${build.classes.dir}"
+         		debug="on">
+			<classpath>
+				<path refid="build.classpath"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="javadoc">
+		<mkdir dir="${build.javadoc.dir}"/>
+		<javadoc
+			   	destdir="${build.javadoc.dir}"
+			   	author="true"
+			   	version="false"
+			   	use="true"
+			   	windowtitle="${project.name}">
+			<classpath>
+				<path refid="build.classpath"/>
+			</classpath>
+			<packageset dir="${src.dir}" defaultexcludes="yes">
+			</packageset>
+			<bottom><![CDATA[<i>&copy; Rob Newsome 2005.</i>]]></bottom>
+		</javadoc>
+	</target>
+	
+	<target name="test" depends="compile">
+		<!-- Add TCK -->
+		<mkdir dir="${build.test.dir}"/>
+		<mkdir dir="${build.test.log.dir}"/>
+		<javac srcdir="${test.dir}"
+         		destdir="${build.test.dir}"
+         		debug="on">
+			<classpath>
+				<path refid="build.test.classpath"/>
+				<pathelement location="${build.classes.dir}"/>
+			</classpath>
+		</javac>
+		<copy todir="${build.test.dir}">
+			<fileset dir="${test.dir}">
+				<include name="**/*.xml"/>
+				<include name="**/*.groovyrule"/>
+			</fileset>					
+		</copy>
+		<junit fork="yes" haltonfailure="no" printsummary="on">
+			<classpath>
+				<pathelement location="${build.test.dir}"/>
+				<pathelement location="${build.classes.dir}"/>
+				<path refid="build.test.classpath"/>				
+			</classpath>
+			<formatter type="brief" usefile="false"/>
+	    	<formatter type="xml" />
+	    	<batchtest todir="${build.test.log.dir}" >
+				<fileset dir="${build.test.dir}">
+					<include name="**/*Test.class"/>
+					<exclude name="**/InteractiveTest.class"/>					
+				</fileset>
+	    	</batchtest>
+		</junit>
+		<!-- Add junitreport -->
+	</target>
+	
+	<target name="dist" depends="clean,compile,test,javadoc">
+		<mkdir dir="${dist.dir}"/>
+		<!-- Jar up the distribution -->
+		<jar destfile="${dist.dir}/${dist.name}.jar"
+				basedir="${build.classes.dir}"/>
+		<!-- Zip up the javadoc -->
+		<zip destfile="${dist.dir}/${dist.name}-api.zip"
+				basedir="${build.javadoc.dir}"/>
+		<!-- Zip up the test results -->
+		<!-- TO DO -->
+		<!-- Zip up the source -->
+		<zip destfile="${dist.dir}/${dist.name}-src.zip"
+				basedir="${src.dir}"/>
+		<!-- Zip up full release with libs -->
+		<zip destfile="${dist.dir}/${dist.name}-dist.zip">
+			<fileset dir="${dist.dir}">
+				<include name="${dist.name}.jar"/>				
+			</fileset>
+			<fileset dir="${lib.dir}">
+				<!-- TO DO - can we take this out these hard-coded jars? -->
+				<include name="jsr94.jar"/>
+				<include name="groovy-all-*.jar"/>
+			</fileset>
+		</zip>
+	</target>
+	
+</project>
