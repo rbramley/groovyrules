@@ -14,7 +14,6 @@
 	</td>
       </tr>
     </table>
-    <hr>
 
     <a name="info">
     <h3>Project Info</h3>
@@ -31,10 +30,12 @@
         <li><b>Project Type:</b> Rule Engine</li>
       </ul>
       <!-- project info end -->
+      <p>
 			GroovyRules is a very lightweight <a href=”xxx”>JSR-94</a> 
 			rule engine implementation that allows rules to be defined 
 			using the <a href=”http://groovy.codehaus.org”>Groovy</a>
 			scripting language.
+	  </p>
 	  <p>
 			Many Java projects benefit from the use of a rule engine – 
 			providing the ability to take business rules out of the core 
@@ -50,6 +51,7 @@
 			it and another rule engine should be reasonably straightforward 
 			(with only the rule definitions themselves needing to be rewritten),
 			if it should prove necessary at a later date.
+		</p>
 		<p>
 			GroovyRules allows rules to be redefined at runtime, and your 
 			application will automatically work to the new definitions. To achieve 
@@ -57,11 +59,13 @@
 			syntax. Rules are bound together into <i>rule execution sets</i>, or 
 			sets of rules that execute in a specific situation, using an XML 
 			descriptor file.
+		</p>
 		<p>
 			GroovyRules is <i>not</i> intended to compete with heavy-duty
 			commercial or open source rule engines, but it provides a way to
 			meet the requirements of many projects with little overhead in either
 			development effort or architecture.
+		</p>
     </blockquote>
 
     <a name="contents">
@@ -95,9 +99,11 @@
     <h3>Download and Installation</h3>
     </a>
     <blockquote>
+    	<p>
       	The latest release of GroovyRules is available from the 
         <a href="servlets/ProjectDocumentList">Files Section</a> of this
         site. The following jars need to be added to your project's classpath:
+        </p>
         <ul>
         	<li>groovyrules.jar - This contains the GroovyRules implementation.</li>
         	<li>jsr94.jar - This contains the JSR-94 APIs, available from 
@@ -116,6 +122,7 @@
     <h3>Background</h3>
     </a>
     <blockquote>
+    	<p>
       GroovyRules as an idea was seeded in work done on a simple JSR94
       implementation (created for a proof-of-concept application,
       whilst a commercial rule engine was being decided upon) by
@@ -123,25 +130,28 @@
       in 2004. This early approach was very simple, with the team implementing
       only exactly what they required, but proved adequate to implement
       a variety of real-world rules.
+      </p>
       <p>
       Following this work, Rob Newsome became involved in the 
       <a href="http://www.jcp.org/en/jsr/detail?id=241">Groovy language JSR</a>, 
       and thought the language was quite a neat (and very powerful) way 
       of specifying rule definitions. GroovyRules was born as an attempt 
       at a simple but flexible implementation of the rule engine API.      
+      </p>
       <p>
       After a demonstration at 
       <a href="http://java.sun.com/javaone/">JavaOne 2005</a> (as part of Rob's session on the 
       application of Groovy within large commercial projects), a number of the
       audience expressed an interest using GroovyRules. Accordingly, the
       project was moved to Java.net to allow others to work with it.
+      </p>
     </blockquote>
 
     <a name="features">
     <h3>Features</h3>
     </a>
     <blockquote>
-      GroovyRules has the following features:
+	  GroovyRules includes the following features:
       <ul>
 		<li>A very simple, lightweight 
 			<a href="http://www.jcp.org/en/jsr/detail?id=94">JSR-94 
@@ -209,14 +219,17 @@
     <h3>Usage Instructions</h3>
     </a>
     <blockquote>
+    <p>
     To use GroovyRules, first, <a href="#build">build the application</a> or
     <a href="#download">download</a> a precompiled binary.
     Then, follow the instructions below.
+    </p>
     <p>
     The example given here is a modification of the simple invoice processing
     example given in the <a href="">
     JSR-94 Reference Implementation></a>. This defines the concepts of 
     Customer and Invoice. The rules used here are:
+    </p>
     <ol>
     	<li>If an invoice is "unpaid" and for more than $500, reject it as 
     		"excessive".</li>
@@ -225,11 +238,14 @@
 	</ol>
 		
     <h4>Defining Rules</h4>
+    <p>
 	A rule set consists of a <i>rule execution set descriptor</i> and one or
 	more <i>rule definition</i> instances.
+	</p>
 	<p>
 	First, let us define the <i>rule execution set descriptor</i> - an XML file, 
 	which we will call <i>invoicerules.xml</i>:
+	</p>
 	<pre>
 	&lt;ruleexecutionset&gt;
 		&lt;name&gt;Invoice Handling Rule Set&lt;/name&gt;
@@ -241,14 +257,17 @@
 		&lt;/rules&gt;
 	&lt;/ruleexecutionset&gt;
 	</pre>
+	<p>
 	This descriptor defines a single rule execution set, provides a name
 	and description for it, and then identifies two rules that are to be run
 	as part of this rule set. These rules are defined as script files, which 
 	must reside under a common directory (the <i>rule root</i>).
+	</p>
 	<p>
 	Next, we define the rules themselves. The first rule, to govern the 
 	behaviour of excessive invoices, is defined using the following Groovy
 	code, in a file referenced above as <i>excessive_invoice.groovyrule</i>:
+	</p>
 	<pre>
 	customer = data.get(0);
 	invoice = data.get(1);
@@ -256,6 +275,7 @@
 		invoice.status = "excessive"; 
 	}
 	</pre>
+	<p>
 	This simple example here assumes that the list of data passed in (as the
 	<code>data</code> variable, available automatically in the script) contains
 	the Customer instance as item 0, and the Invoice instance as item 1. The 
@@ -263,9 +283,11 @@
 	the type information) checks if the invoice amount is more than $500. Note
 	that the properties on the JavaBeans are accessed in Groovy as if they were
 	fields - Groovy will ensure the getXXX() methods are called correctly.
+	</p>
 	<p>
 	The second rule actually pays the invoice. It assumes the first rule will have
 	run if it needed to. It is defined as the file <i>pay_invoice.groovyrule</i>:
+	</p>
 	<pre>
 	customer = data.get(0);
 	invoice = data.get(1);
@@ -275,10 +297,13 @@
 		invoice.status = "paid";
 	}
 	</pre>
+	<p>
 	Again this rule extracts the Customer and Invoice instances, and runs
 	some simple logic against them. 
-
+	</p>
+	
     <h4>Calling Rules</h4>
+   <p>
    Now we have defined our rule set, we can call it using the standard
    JSR-94 API. A full description of this API is available elsewhere, but
    an example showing how to call the above rules, passing in a 
@@ -288,6 +313,7 @@
    Implementation, which can be run with only a minor modification to 
    change the implementation class and the rule execution set configuration
    file. The key parts of the calling code are shown here:
+   </p>
    <pre>
 	<font color="green">// Load the rule service provider of the implementation.
 	// Loading this class will automatically register this
@@ -326,16 +352,19 @@
 	<font color="green">// Execute the rules</font>
 	List results = statelessRuleSession.executeRules(input);
    </pre>
+   <p>
    While this may look more complex than simply calling a Groovy script
    engine directly, it does provide a standards-compliant way to access your
    rules, and will greatly help if you decide to change your rule engine at a
    later date.
+   </p>
    <p>
    Note that the JSR-94 API takes a List of data as an argument and returns
    a List as results - this allows you the flexibility to put whatever you may 
    need to inside this List.
+   </p>
    
-    </blockquote>
+   </blockquote>
 
 <!--
     <a name="tck">
@@ -357,21 +386,25 @@
     <h3>Support</h3>
     </a>
     <blockquote>
+      <p>
       GroovyRules is a community-supported open-source product.  You can find
       support by subscribing to the various 
       <a href="servlets/ProjectMailingListList">mailing lists</a> offered
       in this java.net project.
+      </p>
     </blockquote>
 
     <a name="participate">
     <h3>Participation</h3>
     </a>
     <blockquote>
+      <p>
       The project is interested in hearing from anyone who would like
       to help, whether it be working on the code or simply providing 
       useful feedback on real-world usage. A good place to start is by joining
       one of the <a href="servlets/ProjectMailingListList">mailing lists</a>, 
       and letting everyone know that you'd like to participate.
+      </p>
     </blockquote>
 
     <a name="revision">
