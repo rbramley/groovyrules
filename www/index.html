@@ -1,45 +1,397 @@
 <html>
-<head>
-<title>Project Home Page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-</head>
+  <head>
+    <title>
+      GroovyRules
+    </title>
+  </head>
+  <body>
+    <table>
+      <tr>
+	<td valign="top"><!--<img src="images/icon.gif">--></td>
+	<td valign="top">
+          <h1>GroovyRules</h1>
+  		  <!-- Navbar went here -->
+	</td>
+      </tr>
+    </table>
+    <hr>
 
-<body bgcolor="#FFFFFF" text="#000000">
-<h1>Default project home page </h1>
-<p>Congratulations on your new java.net project! </p>
-<p>This page is the home page for your new project. This content is appearing 
-  because you have selected the option <b>Use project index.html</b>. To edit 
-  the information displayed on this page, just use CVS to check out your project's 
-  CVS repository and edit index.html in directory www. You can get more information 
-  on how to set-up your local CVS client, click on <b>Version Control</b> on the 
-  left nav bar. </p>
-<p>If you don't want to use CVS to manage your home page, click on the <b>Edit 
-  project</b> link on this page and unclick the option <b>Use project index.html</b>. 
-  Your project home page contents will be generated from the <b>Edit project</b> 
-  field <b>Description</b>. Edit the text on that field to change your home page 
-  contents. Click on <b>Submit changes</b> to save your edits. </p>
-<p>If you are looking for <a href="https://java-net.dev.java.net/ProjectPages.html#templates">sample 
-  home page templates</a>, check out the <a href="https://java-net.dev.java.net/ProjectPages.html">java.net 
-  Project Starter Kit</a>. Copy either of the templates into your project's html 
-  to get started on your project's home page. </p>
-<p>You can find lots of helpful information in the Starter Kit to get your project 
-  started. Some of the things you will find in there include:</p>
-<ul>
-  <li>Hints on how to <a href="https://java-net.dev.java.net/ProjectPages.html#pages">set-up 
-    your project's</a> home page</li>
-  <li>Ideas on how to <a href="https://java-net.dev.java.net/ProjectPages.html#publicity">publicize 
-    your project</a> including RSS feeds</li>
-  <li>Hints on <a href="https://java-net.dev.java.net/pagedesign.html">project 
-    page HTML</a></li>
-  <li>Setting up project <a href="https://java-net.dev.java.net/ProjectPages.html#wiki">wiki 
-    pages</a></li>
-  <li>And places to go if <a href="https://java-net.dev.java.net/ProjectPages.html#feedback">you 
-    have questions</a>.</li>
-</ul>
-<p>Remember that you will attract more new members and your project team will 
-  work more effectively if you, as the project owner, supply sufficient information 
-  about your project for visitors to your project space. Good luck with your new 
-  project! </p>
-</body>
+    <a name="info">
+    <h3>Project Info</h3>
+    </a>
+    <blockquote>
+      <!-- project info start -->
+      <ul>
+        <li><b>Project Name:</b> GroovyRules</li>
+        <!-- Latest Release: e.g. 1.0 -->
+        <li><b>Latest Release:</b> Alpha 1</li>
+        <!-- Status of best release: Planning, Pre-Alpha, Alpha, Beta, Production -->
+        <li><b>Latest Release Status:</b> Alpha</li>
+        <!-- Project Type: Web Service, Tool, Component, or add your own -->
+        <li><b>Project Type:</b> Rule Engine</li>
+      </ul>
+      <!-- project info end -->
+			GroovyRules is a very lightweight <a href=”xxx”>JSR-94</a> 
+			rule engine implementation that allows rules to be defined 
+			using the <a href=”http://groovy.codehaus.org”>Groovy</a>
+			scripting language.
+	  <p>
+			Many Java projects benefit from the use of a rule engine – 
+			providing the ability to take business rules out of the core 
+			codebase, defined in a consistent manner, and changed without 
+			a recompile of the application. However, a typical rule engine is a fairly 
+			complex piece of software, and introducing one to your project 
+			may have a significant overhead during development. One of the 
+			goals behind GroovyRules is that it should impose little on the 
+			user – the project will meet the goals of many projects, but does 
+			not attempt to provide all the functionality of a larger commercial 
+			or open source rule engine. Since your code uses GroovyRules 
+			through the standard JSR-94 rule engine API, changing between 
+			it and another rule engine should be reasonably straightforward 
+			(with only the rule definitions themselves needing to be rewritten),
+			if it should prove necessary at a later date.
+		<p>
+			GroovyRules allows rules to be redefined at runtime, and your 
+			application will automatically work to the new definitions. To achieve 
+			this, each rule is defined in its own small file, using standard Groovy
+			syntax. Rules are bound together into <i>rule execution sets</i>, or 
+			sets of rules that execute in a specific situation, using an XML 
+			descriptor file.
+		<p>
+			GroovyRules is <i>not</i> intended to compete with heavy-duty
+			commercial or open source rule engines, but it provides a way to
+			meet the requirements of many projects with little overhead in either
+			development effort or architecture.
+    </blockquote>
+
+    <a name="contents">
+    <h3>Contents</h3>
+    </a>
+    <blockquote>
+      <dl>
+	<!--<dd><a href="#screenshot">Screenshot</a></dd>-->
+	<dd><a href="#download">Download and Installation</a></dd>
+	<dd><a href="#background">Background</a></dd>
+	<dd><a href="#features">Features</a></dd>
+	<dd><a href="#building">Building From Source</a></dd>
+	<dd><a href="#usage">Usage Instructions</a></dd>
+	<!--<dd><a href="#tck">Running the TCK</a></dd>-->
+	<dd><a href="#support">Support</a></dd>
+	<dd><a href="#participate">Participation</a></dd>
+	<dd><a href="#revision">Revision History</a></dd>
+      </dl>
+    </blockquote>
+
+<!--
+    <a name="screenshot">
+    <h3>Screenshot</h3>
+    <blockquote>
+      <img src="images/screenshot.gif" alt="Screenshot" />
+    </blockquote>
+    </a>
+-->
+
+    <a name="download">
+    <h3>Download and Installation</h3>
+    </a>
+    <blockquote>
+      	The latest release of GroovyRules is available from the 
+        <a href="servlets/ProjectDocumentList">Files Section</a> of this
+        site. The following jars need to be added to your project's classpath:
+        <ul>
+        	<li>groovyrules.jar - This contains the GroovyRules implementation.</li>
+        	<li>jsr94.jar - This contains the JSR-94 APIs, available from 
+        	<a href="http://jcp.org/aboutJava/communityprocess/final/jsr094/index.html">this site</a>.</li>
+        	<li>groovy-all-1.0-jsr-02.jar - This contains the Groovy language
+        	implementation (the JSR Beta 2 release currently), and all required 
+        	libraries - it can be substituted with another version of Groovy if you 
+        	prefer, available from 
+        	<a href="http://groovy.codehaus.org">this site</a>. Please ensure
+        	all required libraries are present if you do not use a <i>groovy-all-*</i>
+        	jar.</li>
+        </ul>
+    </blockquote>
+
+    <a name="background">
+    <h3>Background</h3>
+    </a>
+    <blockquote>
+      GroovyRules as an idea was seeded in work done on a simple JSR94
+      implementation (created for a proof-of-concept application,
+      whilst a commercial rule engine was being decided upon) by
+      <a href="http://www.capgemini.com">Capgemini UK</a> in early
+      in 2004. This early approach was very simple, with the team implementing
+      only exactly what they required, but proved adequate to implement
+      a variety of real-world rules.
+      <p>
+      Following this work, Rob Newsome became involved in the 
+      <a href="http://www.jcp.org/en/jsr/detail?id=241">Groovy language JSR</a>, 
+      and thought the language was quite a neat (and very powerful) way 
+      of specifying rule definitions. GroovyRules was born as an attempt 
+      at a simple but flexible implementation of the rule engine API.      
+      <p>
+      After a demonstration at 
+      <a href="http://java.sun.com/javaone/">JavaOne 2005</a> (as part of Rob's session on the 
+      application of Groovy within large commercial projects), a number of the
+      audience expressed an interest using GroovyRules. Accordingly, the
+      project was moved to Java.net to allow others to work with it.
+    </blockquote>
+
+    <a name="features">
+    <h3>Features</h3>
+    </a>
+    <blockquote>
+      GroovyRules has the following features:
+      <ul>
+		<li>A very simple, lightweight 
+			<a href="http://www.jcp.org/en/jsr/detail?id=94">JSR-94 
+			Rule Engine API</a> 
+			implementation.</li>
+		<li>Supports the specification of rules using the full power
+			of the <a href="http://groovy.codehaus.org">Groovy</a> 
+			scripting language.</li>
+		<li>Allows rule definitions to be replaced and altered at runtime, 
+			without recompilation, server restart or redeployment.</li>
+		<li>All rules are defined as simple <code>.groovyrule</code> script
+			files, which are precompiled and cached for performance (until 
+			changed).</li>
+		<li>Rules are combined to form <i>rule execution sets</i> using 
+			XML descriptors, tailored to be run in specific situations.</li>
+		<li>Currently supports only <i>stateless</i> rule
+			sessions, but is expected to additionally support <i>stateful</i>
+			session shortly.</li>
+		<li>Little code stands between your application and your rules - so
+			any issues in use should be easily diagnosed and fixed.</li>
+      </ul>
+    </blockquote>
+    
+    <a name="building">
+    <h3>Build Instructions</h3>
+    </a>
+    <blockquote>
+    To build GroovyRules, follow these steps:
+    <ol>
+      <li>
+        Download and install <code>ant</code> 1.5.1 or greater from
+        <a href="http://ant.apache.org" target="_blank">
+        http://ant.apache.org/</a>.
+      </li>
+      <li>
+        Check out the <code>groovyrules</code> source code from java.net.  You
+        can find instructions for doing so here:
+        <a href="http://groovyrules.dev.jav.net/source/browse/groovyrules/"
+           target="_blank">
+        http://groovyrules.dev.java.net/source/browse/groovyrules/</a>.
+      </li>
+      <li>
+        Change your directory to <code>groovyrules</code>.<!-- and copy
+        the <code>build.properties.sample</code> template
+        to <code>build.properties</code>.-->
+      </li>
+      <!--<li>
+        Follow the instructions in <code>build.properties</code> to configure
+        for your environment.
+      </li>-->
+      <li>
+        Run '<code>ant dist</code>'.  A <code>dist</code> directory will be
+        created containing <code>groovyrules.jar</code>, a javadoc API documentation
+        zip, and <code>groovyrules-dist.zip</code> containing all jars that 
+        need to be added to your classpath.
+      </li>
+      <li>
+      	See the instructions above for how to add GroovyRules to your project,
+      	and the instructions below for how to use GroovyRules.
+      </li>
+    </ol>
+    </blockquote>
+
+    <a name="usage">
+    <h3>Usage Instructions</h3>
+    </a>
+    <blockquote>
+    To use GroovyRules, first, <a href="#build">build the application</a> or
+    <a href="#download">download</a> a precompiled binary.
+    Then, follow the instructions below.
+    <p>
+    The example given here is a modification of the simple invoice processing
+    example given in the <a href="">
+    JSR-94 Reference Implementation></a>. This defines the concepts of 
+    Customer and Invoice. The rules used here are:
+    <ol>
+    	<li>If an invoice is "unpaid" and for more than $500, reject it as 
+    		"excessive".</li>
+		<li>If an invoice is still "unpaid", mark it as "paid" and decrease
+			the customer's account balance by the invoice amount.</li>
+	</ol>
+		
+    <h4>Defining Rules</h4>
+	A rule set consists of a <i>rule execution set descriptor</i> and one or
+	more <i>rule definition</i> instances.
+	<p>
+	First, let us define the <i>rule execution set descriptor</i> - an XML file, 
+	which we will call <i>invoicerules.xml</i>:
+	<pre>
+	&lt;ruleexecutionset&gt;
+		&lt;name&gt;Invoice Handling Rule Set&lt;/name&gt;
+		&lt;description&gt;Handles invoices for customers&lt;/description&gt;
+		&lt;ruleroot&gt;/org/groovyrules/test&lt;/ruleroot&gt;
+		&lt;rules&gt;
+			&lt;rule&gt;excessive_invoice.groovyrule&lt;/rule&gt;
+			&lt;rule&gt;pay_invoice.groovyrule&lt;/rule&gt;
+		&lt;/rules&gt;
+	&lt;/ruleexecutionset&gt;
+	</pre>
+	This descriptor defines a single rule execution set, provides a name
+	and description for it, and then identifies two rules that are to be run
+	as part of this rule set. These rules are defined as script files, which 
+	must reside under a common directory (the <i>rule root</i>).
+	<p>
+	Next, we define the rules themselves. The first rule, to govern the 
+	behaviour of excessive invoices, is defined using the following Groovy
+	code, in a file referenced above as <i>excessive_invoice.groovyrule</i>:
+	<pre>
+	customer = data.get(0);
+	invoice = data.get(1);
+	if(invoice.status == "unpaid" &amp;&amp; invoice.amount &gt; 500 ) { 
+		invoice.status = "excessive"; 
+	}
+	</pre>
+	This simple example here assumes that the list of data passed in (as the
+	<code>data</code> variable, available automatically in the script) contains
+	the Customer instance as item 0, and the Invoice instance as item 1. The 
+	simple Groovy fragment (which looks a lot like Java in this example, without
+	the type information) checks if the invoice amount is more than $500. Note
+	that the properties on the JavaBeans are accessed in Groovy as if they were
+	fields - Groovy will ensure the getXXX() methods are called correctly.
+	<p>
+	The second rule actually pays the invoice. It assumes the first rule will have
+	run if it needed to. It is defined as the file <i>pay_invoice.groovyrule</i>:
+	<pre>
+	customer = data.get(0);
+	invoice = data.get(1);
+	if(invoice.status == "unpaid") { 
+		customer.creditLimit = 
+			customer.creditLimit - invoice.amount;
+		invoice.status = "paid";
+	}
+	</pre>
+	Again this rule extracts the Customer and Invoice instances, and runs
+	some simple logic against them. 
+
+    <h4>Calling Rules</h4>
+   Now we have defined our rule set, we can call it using the standard
+   JSR-94 API. A full description of this API is available elsewhere, but
+   an example showing how to call the above rules, passing in a 
+   Customer and Invoice, is shown in
+   <a href="" target="_blank">this test case</a>. This code
+   is based very much on the example in the JSR-94 Reference
+   Implementation, which can be run with only a minor modification to 
+   change the implementation class and the rule execution set configuration
+   file. The key parts of the calling code are shown here:
+   <pre>
+	<font color="green">// Load the rule service provider of the implementation.
+	// Loading this class will automatically register this
+	// provider with the provider manager.</font>
+	Class.forName("org.groovyrules.core.RuleServiceProviderImpl");
+	
+	<font color="green">// Get an input stream for our rule set definition file</font>
+	InputStream inStream = getClass().getResourceAsStream(
+		"/org/groovyrules/test/invoicerules.xml");
+
+	<font color="green">// Boilerplate code to create a rule execution set</font>
+	<font color="green">// from the InputStream we have</font>
+	RuleServiceProvider serviceProvider = 
+		RuleServiceProviderManager.getRuleServiceProvider(
+			RuleServiceProviderImpl.RULE_SERVICE_PROVIDER_URI);
+	RuleAdministrator ruleAdministrator = 
+		serviceProvider.getRuleAdministrator();
+	LocalRuleExecutionSetProvider provider = 
+		ruleAdministrator.getLocalRuleExecutionSetProvider(null);
+	RuleExecutionSet res1 = 
+		provider.createRuleExecutionSet(inStream, null);
+
+	<font color="green">// Register the RuleExecutionSet</font>
+	<font color="green">// Here we simply use the set's name as its URI</font>
+	String uri = res1.getName();
+	ruleAdministrator.registerRuleExecutionSet(uri, res1, null);
+
+	<font color="green">// Get a handle on the RuleRuntime</font>
+	RuleRuntime ruleRuntime = serviceProvider.getRuleRuntime();
+
+	<font color="green">// Create a StatelessRuleSession</font>
+	StatelessRuleSession statelessRuleSession = 
+		(StatelessRuleSession) ruleRuntime.createRuleSession(uri,
+			new HashMap(), RuleRuntime.STATELESS_SESSION_TYPE);
+
+	<font color="green">// Execute the rules</font>
+	List results = statelessRuleSession.executeRules(input);
+   </pre>
+   While this may look more complex than simply calling a Groovy script
+   engine directly, it does provide a standards-compliant way to access your
+   rules, and will greatly help if you decide to change your rule engine at a
+   later date.
+   <p>
+   Note that the JSR-94 API takes a List of data as an argument and returns
+   a List as results - this allows you the flexibility to put whatever you may 
+   need to inside this List.
+   
+    </blockquote>
+
+<!--
+    <a name="tck">
+    <h3>Running the TCK</h3>
+    </a>
+    <blockquote>
+    To run the JSR-94 TCK against GroovyRules, follow these steps:
+    <ol>
+      <li>
+        Ensure you can build GroovyRules from source, as described 
+        <a href="#build">above</a>.
+      </li>
+	  <li>[Further instructions required here]</li>
+    </ol>
+    </blockquote>
+-->
+
+    <a name="support">
+    <h3>Support</h3>
+    </a>
+    <blockquote>
+      GroovyRules is a community-supported open-source product.  You can find
+      support by subscribing to the various 
+      <a href="servlets/ProjectMailingListList">mailing lists</a> offered
+      in this java.net project.
+    </blockquote>
+
+    <a name="participate">
+    <h3>Participation</h3>
+    </a>
+    <blockquote>
+      The project is interested in hearing from anyone who would like
+      to help, whether it be working on the code or simply providing 
+      useful feedback on real-world usage. A good place to start is by joining
+      one of the <a href="servlets/ProjectMailingListList">mailing lists</a>, 
+      and letting everyone know that you'd like to participate.
+    </blockquote>
+
+    <a name="revision">
+    <h3>Revision History</h3>
+    </a>
+    <blockquote>
+      <ul>
+		<li>Version Alpha 1 - [release date]
+		  <ul>
+		    <li>Initial open source release to java.net.</li>
+	  	    <li>Core Stateless JSR-94 APIs implemented.</li>
+		  </ul>
+	    </li>
+      </ul>
+    </blockquote>
+    <!--<hr>
+    <small>
+    <a href="http://java-enterprise.dev.java.net/">
+    <img src="images/foundry-small.gif" border="0" alt="foundry"></a>
+    <i>Part of the <a href="http://java-enterprise.dev.java.net/">
+    Java Enterprise Community</a>.</i></small>-->
+  </body>
 </html>
-
