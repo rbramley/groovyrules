@@ -105,10 +105,6 @@
 		<zip destfile="${dist.dir}/${dist.name}-api.zip"
 				basedir="${build.javadoc.dir}"/>
 		<!-- Zip up the test results -->
-		<!-- TO DO -->
-		<!-- Zip up the source -->
-		<zip destfile="${dist.dir}/${dist.name}-src.zip"
-				basedir="${src.dir}"/>
 		<!-- Zip up full release with libs -->
 		<zip destfile="${dist.dir}/${dist.name}-dist.zip">
 			<fileset dir="${dist.dir}">
@@ -120,6 +116,13 @@
 				<include name="groovy-all-*.jar"/>
 			</fileset>
 		</zip>
+	</target>
+	
+	<target name="src-dist">
+		<mkdir dir="${dist.dir}"/>
+		<!-- Zip up the source -->
+		<zip destfile="${dist.dir}/${dist.name}-src.zip"
+				basedir="${src.dir}"/>		
 	</target>
 	
 </project>
