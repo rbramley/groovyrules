@@ -16,7 +16,6 @@ import javax.rules.admin.RuleExecutionSet;
 
 import junit.framework.TestCase;
 
-import org.groovyrules.core.RuleServiceProviderImpl;
 
 
 /**
@@ -34,12 +33,12 @@ public class BasicRuleTest extends TestCase {
 		// Load the rule service provider of the implementation.
 		// Loading this class will automatically register this
 		// provider with the provider manager.
-		Class.forName(RuleServiceProviderImpl.class.getName());
+		Class.forName("org.groovyrules.core.RuleServiceProviderImpl");
 		
 		// Get the rule service provider from the provider manager.
 		RuleServiceProvider serviceProvider = 
 			RuleServiceProviderManager.getRuleServiceProvider(
-					RuleServiceProviderImpl.RULE_SERVICE_PROVIDER_URI);
+					"org.groovyrules.core.RuleServiceProviderImpl");
 
 		// Get the RuleAdministrator
 		RuleAdministrator ruleAdministrator = serviceProvider.getRuleAdministrator();
