@@ -1,12 +1,14 @@
 package org.groovyrules.core;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.rules.InvalidRuleSessionException;
 import javax.rules.ObjectFilter;
 import javax.rules.RuleExecutionSetMetadata;
+import javax.rules.RuleRuntime;
 import javax.rules.StatelessRuleSession;
 
 /**
@@ -18,9 +20,11 @@ import javax.rules.StatelessRuleSession;
  */
 public class StatelessRuleSessionImpl implements StatelessRuleSession {
 
+	private String uri;
 	private RuleExecutionSetImpl res;
 	
-	protected StatelessRuleSessionImpl(RuleExecutionSetImpl res) {
+	protected StatelessRuleSessionImpl(String uri, RuleExecutionSetImpl res) {
+		this.uri = uri;
 		this.res = res;
 	}
 	
@@ -28,10 +32,11 @@ public class StatelessRuleSessionImpl implements StatelessRuleSession {
 	/* (non-Javadoc)
 	 * @see javax.rules.StatelessRuleSession#executeRules(java.util.List, javax.rules.ObjectFilter)
 	 */
-	public List executeRules(List arg0, ObjectFilter arg1)
+	public List executeRules(List inputs, ObjectFilter filter)
 			throws InvalidRuleSessionException, RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return res.runRules(inputs, filter);
+		
 	}
 	
 	
@@ -41,40 +46,30 @@ public class StatelessRuleSessionImpl implements StatelessRuleSession {
 	public List executeRules(List inputs) throws InvalidRuleSessionException,
 			RemoteException {
 
-		Iterator rules = res.getRules().iterator();
-		
-		while(rules.hasNext()) {
-			RuleImpl rule = (RuleImpl)rules.next();			
-			rule.execute(inputs);
-		}
-		
-		return inputs;
+		return res.runRules(inputs, null);
 		
 	}
-	
-	
 	
 	/* (non-Javadoc)
 	 * @see javax.rules.RuleSession#getRuleExecutionSetMetadata()
 	 */
 	public RuleExecutionSetMetadata getRuleExecutionSetMetadata()
 			throws InvalidRuleSessionException, RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return new RuleExecutionSetMetadataImpl(res.getName(), res.getDescription(), this.uri);
 	}
+	
 	/* (non-Javadoc)
 	 * @see javax.rules.RuleSession#getType()
 	 */
 	public int getType() throws RemoteException, InvalidRuleSessionException {
-		// TODO Auto-generated method stub
-		return 0;
+		return RuleRuntime.STATELESS_SESSION_TYPE;
 	}
+	
 	/* (non-Javadoc)
 	 * @see javax.rules.RuleSession#release()
 	 */
 	public void release() throws RemoteException, InvalidRuleSessionException {
-		// TODO Auto-generated method stub
-
+		// Nothing to do here
 	}
 	
 	

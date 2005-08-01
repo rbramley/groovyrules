@@ -1,6 +1,8 @@
 package org.groovyrules.core;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,15 +28,16 @@ public class RuleRuntimeImpl implements RuleRuntime {
 			throws RuleSessionTypeUnsupportedException,
 			RuleSessionCreateException, RuleExecutionSetNotFoundException,
 			RemoteException {
-		return new StatelessRuleSessionImpl((RuleExecutionSetImpl)RuleAdministratorImpl.registeredRuleExecutionSets.get(uri));
+		return new StatelessRuleSessionImpl(uri, (RuleExecutionSetImpl)RuleAdministratorImpl.registeredRuleExecutionSets.get(uri));
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.rules.RuleRuntime#getRegistrations()
 	 */
 	public List getRegistrations() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		Map registrations = RuleAdministratorImpl.registeredRuleExecutionSets;
+		List registrationURIs = new ArrayList(registrations.keySet());
+		return registrationURIs;
 	}
 
 }

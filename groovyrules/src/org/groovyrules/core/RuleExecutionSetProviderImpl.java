@@ -3,6 +3,7 @@ package org.groovyrules.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.rules.admin.LocalRuleExecutionSetProvider;
@@ -19,16 +20,28 @@ import javax.rules.admin.RuleExecutionSetCreateException;
  */
 public class RuleExecutionSetProviderImpl implements LocalRuleExecutionSetProvider {
 	
+	// TODO: Support properties properly - various scopes for set, rule, etc
+	private Map properties;
+	
+	public RuleExecutionSetProviderImpl(Map properties) {
+		if(properties!=null) {
+			this.properties = properties;
+		}
+		else {
+			this.properties = new HashMap();
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.rules.admin.LocalRuleExecutionSetProvider#createRuleExecutionSet(java.io.InputStream, java.util.Map)
 	 */
-	public RuleExecutionSet createRuleExecutionSet(InputStream inputStream, Map arg1)
+	public RuleExecutionSet createRuleExecutionSet(InputStream inputStream, Map properties)
 			throws RuleExecutionSetCreateException, IOException {
-
+		
 		RuleExecutionSetConfiguration config = 
 			new RuleExecutionSetConfiguration(inputStream);
 		
-		return new RuleExecutionSetImpl(config);
+		return new RuleExecutionSetImpl(config, properties);
 		
 	}
 	

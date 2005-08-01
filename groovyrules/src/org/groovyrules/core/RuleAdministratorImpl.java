@@ -32,8 +32,8 @@ public class RuleAdministratorImpl implements RuleAdministrator {
 	 * @see javax.rules.admin.RuleAdministrator#getLocalRuleExecutionSetProvider(java.util.Map)
 	 */
 	public LocalRuleExecutionSetProvider getLocalRuleExecutionSetProvider(
-			Map arg0) throws RemoteException {
-		return new RuleExecutionSetProviderImpl();
+			Map properties) throws RemoteException {
+		return new RuleExecutionSetProviderImpl(properties);
 	}
 	/* (non-Javadoc)
 	 * @see javax.rules.admin.RuleAdministrator#getRuleExecutionSetProvider(java.util.Map)

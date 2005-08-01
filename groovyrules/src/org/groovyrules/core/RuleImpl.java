@@ -25,7 +25,7 @@ public class RuleImpl implements Rule {
 	private GroovyScriptEngine scriptEngine;
 	private String scriptFile;
 	
-	// TODO: Support properties properly
+	// TODO: Support properties properly - various scopes for set, rule, etc
 	private Map properties = new HashMap();
 	
 	public RuleImpl(GroovyScriptEngine scriptEngine, String scriptFile) {
