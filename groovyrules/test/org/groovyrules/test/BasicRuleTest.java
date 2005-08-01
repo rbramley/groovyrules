@@ -63,6 +63,10 @@ public class BasicRuleTest extends TestCase {
 
 		RuleRuntime ruleRuntime = serviceProvider.getRuleRuntime();
 		assertNotNull(ruleRuntime);
+		
+		List registrations = ruleRuntime.getRegistrations();
+		assertEquals(1, registrations.size());
+		assertEquals(String.class, registrations.get(0).getClass());
 
 		// Create a StatelessRuleSession 
 		StatelessRuleSession statelessRuleSession = 
