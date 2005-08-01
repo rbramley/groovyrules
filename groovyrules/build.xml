@@ -50,7 +50,7 @@
 			   	author="true"
 			   	version="false"
 			   	use="true"
-			   	windowtitle="${project.name}">
+			   	windowtitle="GroovyRules">
 			<classpath>
 				<path refid="build.classpath"/>
 			</classpath>
