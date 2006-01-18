@@ -1,8 +1,9 @@
 
 package org.groovyrules.test;
 
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -62,9 +63,10 @@ public class InteractiveTest {
 			
 			System.out.println("Inputs - ");
 			
-			DataInputStream stream = new DataInputStream(System.in);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			
 			System.out.print("- Invoice amount > ");
-			String strAmount = stream.readLine();
+			String strAmount = reader.readLine();
 			
 			int invoiceAmount = Integer.parseInt(strAmount);
 			
