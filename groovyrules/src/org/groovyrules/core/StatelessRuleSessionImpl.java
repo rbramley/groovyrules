@@ -1,8 +1,6 @@
 package org.groovyrules.core;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.rules.InvalidRuleSessionException;
