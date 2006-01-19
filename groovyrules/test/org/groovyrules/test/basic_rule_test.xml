@@ -3,7 +3,7 @@
 <ruleexecutionset>
 	<name>Invoice Handling Rule Set</name>
 	<description>Handles invoices for customers</description>
-	<ruleroot>C:/Development/eclipse/workspace5/groovy.jsr94/bin/org/groovyrules/test</ruleroot>
+	<ruleroot>C:/Development/eclipse/groovyrules/groovyrules/groovyrules/test/org/groovyrules/test</ruleroot>
 	<rules>
 		<rule>rule1.groovyrule</rule>
 		<rule>rule2.groovyrule</rule>
