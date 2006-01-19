@@ -19,9 +19,9 @@ import javax.rules.StatelessRuleSession;
 public class StatelessRuleSessionImpl implements StatelessRuleSession {
 
 	private String uri;
-	private RuleExecutionSetImpl res;
+	private RuleExecutionSetAbstract res;
 	
-	protected StatelessRuleSessionImpl(String uri, RuleExecutionSetImpl res) {
+	protected StatelessRuleSessionImpl(String uri, RuleExecutionSetAbstract res) {
 		this.uri = uri;
 		this.res = res;
 	}

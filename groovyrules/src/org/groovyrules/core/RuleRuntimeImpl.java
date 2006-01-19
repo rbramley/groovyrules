@@ -27,7 +27,7 @@ public class RuleRuntimeImpl implements RuleRuntime {
 			throws RuleSessionTypeUnsupportedException,
 			RuleSessionCreateException, RuleExecutionSetNotFoundException,
 			RemoteException {
-		return new StatelessRuleSessionImpl(uri, (RuleExecutionSetImpl)RuleAdministratorImpl.registeredRuleExecutionSets.get(uri));
+		return new StatelessRuleSessionImpl(uri, (RuleExecutionSetAbstract)RuleAdministratorImpl.registeredRuleExecutionSets.get(uri));
 	}
 
 	/* (non-Javadoc)

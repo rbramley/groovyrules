@@ -5,11 +5,9 @@ import groovy.util.GroovyScriptEngine;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.rules.ObjectFilter;
 import javax.rules.admin.RuleExecutionSet;
 
 /**
@@ -19,23 +17,18 @@ import javax.rules.admin.RuleExecutionSet;
  * 
  * @author Rob Newsome
  */
-public class RuleExecutionSetImpl implements RuleExecutionSet {
+public class RuleExecutionSetImpl extends RuleExecutionSetAbstract implements RuleExecutionSet {
 
 	private String description;
 	private String name;
-	private List rules;
 	
 	// TODO: Support properties properly - various scopes for set, rule, etc
 	private Map properties;
-
-	// The default filter class is null if not set
-	private String defaultFilterClass = null;
 	
 	public RuleExecutionSetImpl(RuleExecutionSetConfiguration config, Map creationProperties) throws IOException {
 		
 		this.name = config.getName();
 		this.description = config.getDescription();
-		this.rules = new ArrayList();
 		
 		if(creationProperties!=null) {
 			this.properties = creationProperties;
@@ -70,12 +63,7 @@ public class RuleExecutionSetImpl implements RuleExecutionSet {
 		return name;
 	}
 	
-	/* (non-Javadoc)
-	 * @see javax.rules.admin.RuleExecutionSet#getRules()
-	 */
-	public List getRules() {
-		return rules;
-	}
+
 	
 	/* (non-Javadoc)
 	 * @see javax.rules.admin.RuleExecutionSet#getDefaultObjectFilter()
@@ -103,57 +91,6 @@ public class RuleExecutionSetImpl implements RuleExecutionSet {
 	 */
 	public void setProperty(Object key, Object value) {
 		this.properties.put(key, value);
-	}
-
-	/**
-	 * Runs all rules in this execution set.
-	 */
-	List runRules(List objects, ObjectFilter filter) {
-		
-		// Ensure that we use the default filter is none
-		// is specified and there is a default.
-		
-		if(filter==null && defaultFilterClass!=null) {
-			
-			// Try to build a new default filter and use that
-			try {
-				ObjectFilter defaultFilter = (ObjectFilter)Class.forName(defaultFilterClass).newInstance();
-				return runRules(objects, defaultFilter);
-			}
-			catch(Exception e) {
-				throw new RuntimeException("Unable to construct default object filter instance", e);
-			}
-			
-		}
-		else {
-				
-			Iterator rules = getRules().iterator();
-			
-			while(rules.hasNext()) {
-				RuleImpl rule = (RuleImpl)rules.next();			
-				rule.execute(objects);
-			}
-	
-			// Determine if filtering is required
-			
-			if(filter==null) {
-				return objects;
-			}
-			else {
-				Iterator objIt = objects.iterator();
-				List forReturn = new ArrayList();
-				while(objIt.hasNext()) {
-					Object returnedObject = objIt.next();
-					Object filteredObject = filter.filter(returnedObject);
-					if(filteredObject!=null) {
-						forReturn.add(filteredObject);
-					}
-				}
-				return forReturn;
-			}
-			
-		}
-		
 	}
 	
 }

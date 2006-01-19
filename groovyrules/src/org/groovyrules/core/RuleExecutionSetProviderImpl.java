@@ -51,8 +51,7 @@ public class RuleExecutionSetProviderImpl implements LocalRuleExecutionSetProvid
 	
 	public RuleExecutionSet createRuleExecutionSet(Object arg0, Map arg1)
 			throws RuleExecutionSetCreateException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException();
+		return new DirectRuleExecutionSetImpl(arg0,arg1);
 	}
 	
 	/* (non-Javadoc)

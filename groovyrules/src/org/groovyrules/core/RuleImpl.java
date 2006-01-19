@@ -20,12 +20,13 @@ import javax.rules.admin.Rule;
  * 
  * @author Rob Newsome
  */
-public class RuleImpl implements Rule {
+public class RuleImpl implements GroovyRule {
 
 	private GroovyScriptEngine scriptEngine;
 	private String scriptFile;
 	
 	// TODO: Support properties properly - various scopes for set, rule, etc
+    // Being used in direct rules to map input list into variables
 	private Map properties = new HashMap();
 	
 	public RuleImpl(GroovyScriptEngine scriptEngine, String scriptFile) {
@@ -76,4 +77,13 @@ public class RuleImpl implements Rule {
 	public void setProperty(Object key, Object value) {
 		properties.put(key, value);
 	}
+    
+    /**
+     * Set all the properties on mass
+     * @see org.groovyrules.core.GroovyRule#setProperties(java.util.Map)
+     */
+    public void setProperties(Map properties) {
+        this.properties = properties;
+        
+    }
 }
