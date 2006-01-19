@@ -1,128 +1,186 @@
 <project name="groovyrules" default="dist">
 
-	<property name="src.dir" value="src"/>
-	<property name="lib.dir" value="lib"/>
-	<property name="build.dir" value="build"/>
-	<property name="test.dir" value="test"/>
-	<property name="build.classes.dir" value="${build.dir}/classes"/>
-	<property name="build.javadoc.dir" value="${build.dir}/javadoc"/>
-	<property name="build.test.dir" value="${build.dir}/test"/>
-	<property name="build.test.log.dir" value="${build.test.dir}/log"/>
-	<property name="dist.dir" value="dist"/>
-	<property name="dist.name" value="groovyrules"/>
-	
+	<!-- Properties for general build -->
+	<property name="src.dir" value="src" />
+	<property name="lib.dir" value="lib" />
+	<property name="build.dir" value="build" />
+	<property name="test.dir" value="test" />
+	<property name="tck.dir" value="tck" />
+	<property name="tck.report.dir" value="${build.dir}/tck" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	<property name="build.javadoc.dir" value="${build.dir}/javadoc" />
+	<property name="build.test.dir" value="${build.dir}/test" />
+	<property name="build.test.log.dir" value="${build.test.dir}/log" />
+	<property name="dist.dir" value="dist" />
+	<property name="dist.name" value="groovyrules" />
+
+	<!--
+		This allows the TCK to be downloaded and unzipped for running against.
+		We currently use the TCK jar from CVS.
+	<property name="jsr94.tck.zip.url.base" value="http://www.javarules.org/jsr94" />
+	<property name="jsr94.tck.zip.name" value="jsr94-1.1.zip" />
+	<property name="temp.dir" value="temp" />
+	<target name="tck.download">
+		<mkdir dir="${temp.dir}" />
+		<get src="${jsr94.tck.zip.url.base}/${jsr94.tck.zip.name}" dest="${temp.dir}/${jsr94.tck.zip.name}" />
+		<unzip src="${temp.dir}/${jsr94.tck.zip.name}" dest="${temp.dir}" />
+	</target>
+	-->
+
 	<path id="build.classpath">
 		<fileset dir="${lib.dir}">
-			<include name="jsr94.jar"/>
-			<include name="groovy-all-*.jar"/>
+			<include name="jsr94.jar" />
+			<include name="groovy-all-*.jar" />
 		</fileset>
 	</path>
-	
+
 	<path id="build.test.classpath">
 		<fileset dir="${lib.dir}">
-			<include name="jsr94.jar"/>
-			<include name="groovy-all-*.jar"/>
-			<include name="junit.jar"/>			
+			<include name="jsr94.jar" />
+			<include name="groovy-all-*.jar" />
+			<include name="junit.jar" />
 		</fileset>
 	</path>
-		
+
+	<path id="tck.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${dist.dir}">
+			<include name="${dist.name}.jar" />
+		</fileset>
+		<fileset dir="${tck.dir}">
+			<include name="jsr94-tck.jar" />
+		</fileset>
+	</path>
+
 	<target name="clean">
-		<delete dir="${build.dir}"/>
-		<delete dir="${dist.dir}"/>		
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
 	</target>
-			
+
 	<target name="compile">
-		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${build.classes.dir}"/>
-		<javac srcdir="${src.dir}"
-         		destdir="${build.classes.dir}"
-         		debug="on">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on">
 			<classpath>
-				<path refid="build.classpath"/>
+				<path refid="build.classpath" />
 			</classpath>
 		</javac>
 	</target>
-	
+
 	<target name="javadoc">
-		<mkdir dir="${build.javadoc.dir}"/>
-		<javadoc
-			   	destdir="${build.javadoc.dir}"
-			   	author="true"
-			   	version="false"
-			   	use="true"
-			   	windowtitle="GroovyRules">
+		<mkdir dir="${build.javadoc.dir}" />
+		<javadoc destdir="${build.javadoc.dir}" author="true" version="false" use="true" windowtitle="GroovyRules">
 			<classpath>
-				<path refid="build.classpath"/>
+				<path refid="build.classpath" />
 			</classpath>
 			<packageset dir="${src.dir}" defaultexcludes="yes">
 			</packageset>
-			<bottom><![CDATA[<i>&copy; Rob Newsome 2005.</i>]]></bottom>
+			<bottom>Copyright Rob Newsome 2005-2006.</bottom>
 		</javadoc>
 	</target>
-	
+
 	<target name="test" depends="compile">
 		<!-- Add TCK -->
-		<mkdir dir="${build.test.dir}"/>
-		<mkdir dir="${build.test.log.dir}"/>
-		<javac srcdir="${test.dir}"
-         		destdir="${build.test.dir}"
-         		debug="on">
+		<mkdir dir="${build.test.dir}" />
+		<mkdir dir="${build.test.log.dir}" />
+		<javac srcdir="${test.dir}" destdir="${build.test.dir}" debug="on">
 			<classpath>
-				<path refid="build.test.classpath"/>
-				<pathelement location="${build.classes.dir}"/>
+				<path refid="build.test.classpath" />
+				<pathelement location="${build.classes.dir}" />
 			</classpath>
 		</javac>
 		<copy todir="${build.test.dir}">
 			<fileset dir="${test.dir}">
-				<include name="**/*.xml"/>
-				<include name="**/*.groovyrule"/>
-			</fileset>					
+				<include name="**/*.xml" />
+				<include name="**/*.groovyrule" />
+			</fileset>
 		</copy>
 		<junit fork="yes" haltonfailure="no" printsummary="on">
 			<classpath>
-				<pathelement location="${build.test.dir}"/>
-				<pathelement location="${build.classes.dir}"/>
-				<path refid="build.test.classpath"/>				
+				<pathelement location="${build.test.dir}" />
+				<pathelement location="${build.classes.dir}" />
+				<path refid="build.test.classpath" />
 			</classpath>
-			<formatter type="brief" usefile="false"/>
-	    	<formatter type="xml" />
-	    	<batchtest todir="${build.test.log.dir}" >
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
+			<batchtest todir="${build.test.log.dir}">
 				<fileset dir="${build.test.dir}">
-					<include name="**/*Test.class"/>
-					<exclude name="**/InteractiveTest.class"/>					
+					<include name="**/*Test.class" />
+					<exclude name="**/InteractiveTest.class" />
 				</fileset>
-	    	</batchtest>
+			</batchtest>
 		</junit>
 		<!-- Add junitreport -->
 	</target>
-	
+
 	<target name="dist" depends="clean,compile,test,javadoc">
-		<mkdir dir="${dist.dir}"/>
+		<mkdir dir="${dist.dir}" />
 		<!-- Jar up the distribution -->
-		<jar destfile="${dist.dir}/${dist.name}.jar"
-				basedir="${build.classes.dir}"/>
+		<jar destfile="${dist.dir}/${dist.name}.jar" basedir="${build.classes.dir}" />
 		<!-- Zip up the javadoc -->
-		<zip destfile="${dist.dir}/${dist.name}-api.zip"
-				basedir="${build.javadoc.dir}"/>
+		<zip destfile="${dist.dir}/${dist.name}-api.zip" basedir="${build.javadoc.dir}" />
 		<!-- Zip up the test results -->
 		<!-- Zip up full release with libs -->
 		<zip destfile="${dist.dir}/${dist.name}-dist.zip">
 			<fileset dir="${dist.dir}">
-				<include name="${dist.name}.jar"/>				
+				<include name="${dist.name}.jar" />
 			</fileset>
 			<fileset dir="${lib.dir}">
 				<!-- TO DO - can we take this out these hard-coded jars? -->
-				<include name="jsr94.jar"/>
-				<include name="groovy-all-*.jar"/>
+				<include name="jsr94.jar" />
+				<include name="groovy-all-*.jar" />
 			</fileset>
 		</zip>
 	</target>
-	
+
 	<target name="src-dist">
-		<mkdir dir="${dist.dir}"/>
+		<mkdir dir="${dist.dir}" />
 		<!-- Zip up the source -->
-		<zip destfile="${dist.dir}/${dist.name}-src.zip"
-				basedir="${src.dir}"/>		
+		<zip destfile="${dist.dir}/${dist.name}-src.zip" basedir="${src.dir}" />
 	</target>
-	
+
+	<!-- Pattern sets for TCK 
+	<patternset id="org.jcp.jsr94.tck.junit">
+		<include name="org/jcp/jsr94/tck/**/*Test.class" />
+		<exclude name="org/jcp/jsr94/tck/**/ClassLoaderTest.class" />
+		<exclude name="org/jcp/jsr94/tck/**/AllTests.class" />
+	</patternset>
+	<patternset id="org.jcp.jsr94.tck.junit.classloader">
+		<include name="org/jcp/jsr94/tck/**/ClassLoaderTest.class" />
+	</patternset>
+	-->
+
+	<target name="tck.run">
+		<!--<ant antfile="tck/run_tck.xml" target="tck.run"/>-->
+		<!--<java classpathref="tck.classpath"
+			classname="">
+		</java>
+		-->
+
+		<mkdir dir="${tck.report.dir}" />
+
+		<junit printsummary="yes" haltonfailure="no" fork="yes">
+			<jvmarg value="-Djsr94.tck.configuration=tck" />
+			<formatter type="xml" />
+			<classpath>
+				<path refid="tck.classpath" />
+			</classpath>
+			<test name="org.jcp.jsr94.tck.AllTests" fork="yes" todir="${tck.report.dir}">
+			</test>
+		</junit>
+
+		<junit printsummary="yes" haltonfailure="no" fork="yes">
+			<jvmarg value="-Djsr94.tck.configuration=tck" />
+			<formatter type="xml" />
+			<classpath>
+				<path refid="tck.classpath" />
+			</classpath>
+			<test name="org.jcp.jsr94.tck.ClassLoaderTest" fork="yes" todir="${tck.report.dir}">
+			</test>
+		</junit>
+
+	</target>
+
 </project>

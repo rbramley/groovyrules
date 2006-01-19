@@ -1,0 +1,15 @@
+<!-- Meta-data about this rule execusion set -->
+
+<ruleexecutionset>
+
+	<name>Invoice Handling Rule Set</name>
+	<description>Handles invoices for customers</description>
+
+	<ruleroot>C:/Development/eclipse/workspace5/groovy.jsr94/tck</ruleroot>
+	<rules>
+		<rule>tck_res_1_rule_1.groovyrule</rule>
+	</rules>
+	
+</ruleexecutionset>
+
+
