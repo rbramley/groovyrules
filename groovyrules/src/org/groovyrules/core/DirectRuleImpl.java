@@ -52,7 +52,7 @@ public class DirectRuleImpl implements GroovyRule {
         Iterator inputIterator = properties.keySet().iterator();
         while (inputIterator.hasNext()){
             Integer key = (Integer) inputIterator.next();
-            returnValue.setVariable((String)properties.get(key), input.get(key));
+            returnValue.setVariable((String)properties.get(key), input.get(key.intValue()));
         }
         
         return returnValue;
