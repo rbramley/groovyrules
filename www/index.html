@@ -328,7 +328,7 @@
 	<font color="green">// from the InputStream we have</font>
 	RuleServiceProvider serviceProvider = 
 		RuleServiceProviderManager.getRuleServiceProvider(
-			RuleServiceProviderImpl.RULE_SERVICE_PROVIDER_URI);
+			"org.groovyrules.core.RuleServiceProviderImpl");
 	RuleAdministrator ruleAdministrator = 
 		serviceProvider.getRuleAdministrator();
 	LocalRuleExecutionSetProvider provider = 
