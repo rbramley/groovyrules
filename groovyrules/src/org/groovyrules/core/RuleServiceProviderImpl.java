@@ -20,7 +20,7 @@ import org.groovyrules.filerules.FileRuleExecutionSetProviderImpl;
  *		Class.forName("org.groovyrules.core.RuleServiceProviderImpl");
  *		
  *		// Get the rule service provider from the provider manager.
- *     // Here we're using the default file-based rule service.
+ *		// Here we're using the default file-based rule service.
  *		RuleServiceProvider serviceProvider = 
  *			RuleServiceProviderManager.getRuleServiceProvider(
  *					"org.groovyrules.core.RuleServiceProviderImpl");
