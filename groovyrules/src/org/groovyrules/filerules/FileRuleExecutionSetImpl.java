@@ -1,14 +1,14 @@
-package org.groovyrules.core;
+package org.groovyrules.filerules;
 
 import groovy.util.GroovyScriptEngine;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.rules.admin.RuleExecutionSet;
+
+import org.groovyrules.core.RuleExecutionSetAbstract;
 
 /**
  * Implementation of the <tt>RuleExecutionSet</tt>; this contains
@@ -17,7 +17,7 @@ import javax.rules.admin.RuleExecutionSet;
  * 
  * @author Rob Newsome
  */
-public class RuleExecutionSetImpl extends RuleExecutionSetAbstract implements RuleExecutionSet {
+public class FileRuleExecutionSetImpl extends RuleExecutionSetAbstract implements RuleExecutionSet {
 
 	private String description;
 	private String name;
@@ -25,7 +25,7 @@ public class RuleExecutionSetImpl extends RuleExecutionSetAbstract implements Ru
 	// TODO: Support properties properly - various scopes for set, rule, etc
 	private Map properties;
 	
-	public RuleExecutionSetImpl(RuleExecutionSetConfiguration config, Map creationProperties) throws IOException {
+	public FileRuleExecutionSetImpl(XMLRuleExecutionSetConfiguration config, Map creationProperties) throws IOException {
 		
 		this.name = config.getName();
 		this.description = config.getDescription();
@@ -42,7 +42,7 @@ public class RuleExecutionSetImpl extends RuleExecutionSetAbstract implements Ru
 		
 		for(int i=0; i<config.getRuleFiles().size(); i++) {
 		
-			RuleImpl rule = new RuleImpl(scriptEngine, (String)config.getRuleFiles().get(i));
+			FileRuleImpl rule = new FileRuleImpl(scriptEngine, (String)config.getRuleFiles().get(i));
 			rules.add(rule);
 			
 		}
@@ -65,19 +65,19 @@ public class RuleExecutionSetImpl extends RuleExecutionSetAbstract implements Ru
 	
 
 	
-	/* (non-Javadoc)
-	 * @see javax.rules.admin.RuleExecutionSet#getDefaultObjectFilter()
-	 */
-	public String getDefaultObjectFilter() {
-		return this.defaultFilterClass;
-	}	
-
-	/* (non-Javadoc)
-	 * @see javax.rules.admin.RuleExecutionSet#setDefaultObjectFilter(java.lang.String)
-	 */
-	public void setDefaultObjectFilter(String filterClass) {
-		this.defaultFilterClass = filterClass;
-	}
+//	/* (non-Javadoc)
+//	 * @see javax.rules.admin.RuleExecutionSet#getDefaultObjectFilter()
+//	 */
+//	public String getDefaultObjectFilter() {
+//		return this.defaultFilterClass;
+//	}	
+//
+//	/* (non-Javadoc)
+//	 * @see javax.rules.admin.RuleExecutionSet#setDefaultObjectFilter(java.lang.String)
+//	 */
+//	public void setDefaultObjectFilter(String filterClass) {
+//		this.defaultFilterClass = filterClass;
+//	}
 	
 	/* (non-Javadoc)
 	 * @see javax.rules.admin.RuleExecutionSet#getProperty(java.lang.Object)

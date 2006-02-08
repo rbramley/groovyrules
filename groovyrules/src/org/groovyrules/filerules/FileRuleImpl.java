@@ -1,4 +1,4 @@
-package org.groovyrules.core;
+package org.groovyrules.filerules;
 
 import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.rules.admin.Rule;
+import org.groovyrules.core.RuleAbstract;
 
 /**
  * Implementation of a <tt>Rule</tt>. Each rule is backed
@@ -20,7 +20,7 @@ import javax.rules.admin.Rule;
  * 
  * @author Rob Newsome
  */
-public class RuleImpl implements GroovyRule {
+public class FileRuleImpl extends RuleAbstract {
 
 	private GroovyScriptEngine scriptEngine;
 	private String scriptFile;
@@ -29,7 +29,7 @@ public class RuleImpl implements GroovyRule {
     // Being used in direct rules to map input list into variables
 	private Map properties = new HashMap();
 	
-	public RuleImpl(GroovyScriptEngine scriptEngine, String scriptFile) {
+	public FileRuleImpl(GroovyScriptEngine scriptEngine, String scriptFile) {
 		this.scriptEngine = scriptEngine;
 		this.scriptFile = scriptFile;
 	}
@@ -80,7 +80,7 @@ public class RuleImpl implements GroovyRule {
     
     /**
      * Set all the properties on mass
-     * @see org.groovyrules.core.GroovyRule#setProperties(java.util.Map)
+     * @see org.groovyrules.core.RuleAbstract#setProperties(java.util.Map)
      */
     public void setProperties(Map properties) {
         this.properties = properties;

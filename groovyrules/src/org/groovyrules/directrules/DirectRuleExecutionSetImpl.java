@@ -1,12 +1,11 @@
-package org.groovyrules.core;
+package org.groovyrules.directrules;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.rules.admin.RuleExecutionSet;
+
+import org.groovyrules.core.RuleExecutionSetAbstract;
 
 /**
  * The objective of this class is to enable rules to be provided directly from

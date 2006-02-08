@@ -3,7 +3,7 @@ package org.groovyrules.test;
 import java.io.InputStream;
 import java.util.List;
 
-import org.groovyrules.core.RuleExecutionSetConfiguration;
+import org.groovyrules.filerules.XMLRuleExecutionSetConfiguration;
 
 
 import junit.framework.TestCase;
@@ -16,13 +16,13 @@ import junit.framework.TestCase;
  */
 public class RuleExecutionSetConfigurationTest extends TestCase {
 
-	RuleExecutionSetConfiguration config;
+	XMLRuleExecutionSetConfiguration config;
 	
 	public void setUp() throws Exception {
 		
 		InputStream inStream = getClass().getResourceAsStream(
 		"/org/groovyrules/test/basic_rule_test.xml");
-		config = new RuleExecutionSetConfiguration(inStream);
+		config = new XMLRuleExecutionSetConfiguration(inStream);
 		
 	}
 	

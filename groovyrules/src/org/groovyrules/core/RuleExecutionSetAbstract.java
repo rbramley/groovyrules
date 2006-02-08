@@ -10,21 +10,24 @@ import javax.rules.ObjectFilter;
 import javax.rules.admin.RuleExecutionSet;
 
 /**
- * Abstract class for all the rule executions
+ * Abstract class for all the rule execution sets. This mainly handles running
+ * all the rules, which is common for all implementations, as all rules extend
+ * from the {@link org.groovyrules.core.RuleAbstract} class.
+ * 
  * @author Steve Jones
  * @since 15-Jan-2006
  */
 public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     
-
     // The default filter class is null if not set
     String defaultFilterClass = null;
+    
     // The list of rules
-    final List rules = new ArrayList();
+    protected final List rules = new ArrayList();
     
     // The properties, requires J2SE 5.0 if use generics
     // Map properties = new HashMap<Integer, String>();
-    Map properties = new HashMap();
+    protected Map properties = new HashMap();
     
     /**
      * Runs all rules in this execution set.
@@ -51,7 +54,7 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     		Iterator rules = getRules().iterator();
     		
     		while(rules.hasNext()) {
-    			GroovyRule rule = (GroovyRule)rules.next();	
+    			RuleAbstract rule = (RuleAbstract)rules.next();	
                 rule.setProperties(this.properties);
     			rule.execute(objects);
     		}
@@ -84,6 +87,7 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     public List getRules() {
         return rules;
     }
+    
     /**
      * @see javax.rules.admin.RuleExecutionSet#setDefaultObjectFilter(java.lang.String)
      */
@@ -118,5 +122,4 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
         this.properties.put(arg0,arg1);
     }
     
-
 }

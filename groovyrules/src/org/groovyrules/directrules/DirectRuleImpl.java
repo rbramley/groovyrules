@@ -1,4 +1,4 @@
-package org.groovyrules.core;
+package org.groovyrules.directrules;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
@@ -11,18 +11,21 @@ import java.util.Map;
 
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.runtime.InvokerHelper;
+import org.groovyrules.core.RuleAbstract;
 
 /**
  * Rule that is created directly from a string, not from a script.
  * @author Steve Jones
  * @since 14-Jan-2006
  */
-public class DirectRuleImpl implements GroovyRule {
+public class DirectRuleImpl extends RuleAbstract {
     
     private final static String DESCRIPTION = "Direct Rule Impl";
     
     private final Class rulesClass;
     private final String ruleName;
+    
+    // TODO: Merge properties with file impl, move to superclass.
     private Map properties = new HashMap(); 
 
     /**
@@ -114,7 +117,7 @@ public class DirectRuleImpl implements GroovyRule {
 
     /**
      * Set all the properties on mass
-     * @see org.groovyrules.core.GroovyRule#setProperties(java.util.Map)
+     * @see org.groovyrules.core.RuleAbstract#setProperties(java.util.Map)
      */
     public void setProperties(Map properties) {
         this.properties = properties;

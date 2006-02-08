@@ -21,7 +21,7 @@ import org.groovyrules.core.RuleServiceProviderImpl;
 
 /**
  * Simple interactive console test, using the same rule configuration
- * as the {@link BasicRuleTest}.
+ * as the {@link org.groovyrules.test.BasicRuleTest}.
  * 
  * @author Rob Newsome
  */
@@ -33,7 +33,7 @@ public class InteractiveTest {
 
 		RuleServiceProvider serviceProvider = 
 			RuleServiceProviderManager.getRuleServiceProvider(
-					RuleServiceProviderImpl.RULE_SERVICE_PROVIDER_URI);
+					RuleServiceProviderImpl.FILE_RULE_SERVICE_PROVIDER_URI);
 
 		RuleAdministrator ruleAdministrator = serviceProvider.getRuleAdministrator();
 		

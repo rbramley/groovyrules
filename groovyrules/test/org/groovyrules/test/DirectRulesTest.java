@@ -48,7 +48,7 @@ public class DirectRulesTest extends TestCase {
 
         // Get the rule service provider from the provider manager.
         serviceProvider = RuleServiceProviderManager
-                .getRuleServiceProvider("org.groovyrules.core.RuleServiceProviderImpl");
+                .getRuleServiceProvider("org.groovyrules.core.DirectRuleServiceProviderImpl");
 
         // Get the RuleAdministrator
         ruleAdministrator = serviceProvider.getRuleAdministrator();
