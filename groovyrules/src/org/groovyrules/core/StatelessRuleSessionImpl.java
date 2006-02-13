@@ -33,7 +33,9 @@ public class StatelessRuleSessionImpl implements StatelessRuleSession {
 	public List executeRules(List inputs, ObjectFilter filter)
 			throws InvalidRuleSessionException, RemoteException {
 		
-		return res.runRules(inputs, filter);
+		RuleData data = new RuleData(inputs);
+		res.runRules(data, filter);
+		return data.getObjectsWithFilter(filter);
 		
 	}
 	
@@ -44,7 +46,7 @@ public class StatelessRuleSessionImpl implements StatelessRuleSession {
 	public List executeRules(List inputs) throws InvalidRuleSessionException,
 			RemoteException {
 
-		return res.runRules(inputs, null);
+		return executeRules(inputs, null);
 		
 	}
 	

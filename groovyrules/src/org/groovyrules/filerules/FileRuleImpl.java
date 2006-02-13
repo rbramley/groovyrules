@@ -4,10 +4,10 @@ import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.groovyrules.core.RuleAbstract;
+import org.groovyrules.core.RuleData;
 
 /**
  * Implementation of a <tt>Rule</tt>. Each rule is backed
@@ -34,21 +34,18 @@ public class FileRuleImpl extends RuleAbstract {
 		this.scriptFile = scriptFile;
 	}
 	
-	public List execute(List inputs) {
+	public void execute(RuleData data) {
 		
 		try {
 			
 			Binding binding = new Binding();
-			binding.setVariable("data", inputs);
+			binding.setVariable("data", data);
 			
 			scriptEngine.run(this.scriptFile, binding);
-			
-			return (List)binding.getVariable("data");
-			
+						
 		}
 		catch(Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new RuntimeException("Exception while running Groovy script: " + e.getMessage(), e);
 		}
 			
 	}

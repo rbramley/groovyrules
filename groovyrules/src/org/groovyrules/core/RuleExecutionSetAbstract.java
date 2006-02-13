@@ -32,7 +32,9 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     /**
      * Runs all rules in this execution set.
      */
-    protected List runRules(List objects, ObjectFilter filter) {
+    protected void runRules(RuleData data, ObjectFilter filter) {
+    	
+    	// TODO Use SessionData class for the objects - not just a list!
     	
     	// Ensure that we use the default filter is none
     	// is specified and there is a default.
@@ -42,7 +44,7 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     		// Try to build a new default filter and use that
     		try {
     			ObjectFilter defaultFilter = (ObjectFilter)Class.forName(defaultFilterClass).newInstance();
-    			return runRules(objects, defaultFilter);
+    			runRules(data, defaultFilter);
     		}
     		catch(Exception e) {
     			throw new RuntimeException("Unable to construct default object filter instance", e);
@@ -56,25 +58,16 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     		while(rules.hasNext()) {
     			RuleAbstract rule = (RuleAbstract)rules.next();	
                 rule.setProperties(this.properties);
-    			rule.execute(objects);
+    			rule.execute(data);
     		}
     
     		// Determine if filtering is required
     		
     		if(filter==null) {
-    			return objects;
+    			// no filtering
     		}
     		else {
-    			Iterator objIt = objects.iterator();
-    			List forReturn = new ArrayList();
-    			while(objIt.hasNext()) {
-    				Object returnedObject = objIt.next();
-    				Object filteredObject = filter.filter(returnedObject);
-    				if(filteredObject!=null) {
-    					forReturn.add(filteredObject);
-    				}
-    			}
-    			return forReturn;
+    			// run the filter over the objects
     		}
     		
     	}

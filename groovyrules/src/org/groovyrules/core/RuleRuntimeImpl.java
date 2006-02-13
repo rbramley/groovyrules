@@ -23,11 +23,28 @@ public class RuleRuntimeImpl implements RuleRuntime {
 	/* (non-Javadoc)
 	 * @see javax.rules.RuleRuntime#createRuleSession(java.lang.String, java.util.Map, int)
 	 */
-	public RuleSession createRuleSession(String uri, Map arg1, int arg2)
+	public RuleSession createRuleSession(String uri, Map properties, int sessionType)
 			throws RuleSessionTypeUnsupportedException,
 			RuleSessionCreateException, RuleExecutionSetNotFoundException,
 			RemoteException {
-		return new StatelessRuleSessionImpl(uri, (RuleExecutionSetAbstract)RuleAdministratorImpl.registeredRuleExecutionSets.get(uri));
+		
+		if(sessionType==RuleRuntime.STATELESS_SESSION_TYPE) {
+		
+			return new StatelessRuleSessionImpl(uri, (RuleExecutionSetAbstract)RuleAdministratorImpl.registeredRuleExecutionSets.get(uri));
+		
+		} 
+		else if(sessionType==RuleRuntime.STATEFUL_SESSION_TYPE) {
+			
+			return new StatefulRuleSessionImpl(uri, (RuleExecutionSetAbstract)RuleAdministratorImpl.registeredRuleExecutionSets.get(uri));
+			
+		}
+		else {
+		
+			throw new IllegalArgumentException("Invalid session type specified.");
+			
+		}
+		
+		
 	}
 
 	/* (non-Javadoc)

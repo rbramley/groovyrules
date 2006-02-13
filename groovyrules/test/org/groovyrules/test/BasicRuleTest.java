@@ -65,7 +65,7 @@ public class BasicRuleTest extends TestCase {
 		assertNotNull(ruleRuntime);
 		
 		List registrations = ruleRuntime.getRegistrations();
-		assertEquals(1, registrations.size());
+		assertTrue("No RuleSets registered", registrations.size()>=1);
 		assertEquals(String.class, registrations.get(0).getClass());
 
 		// Create a StatelessRuleSession 

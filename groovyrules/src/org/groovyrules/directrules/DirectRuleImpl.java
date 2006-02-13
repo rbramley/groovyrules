@@ -12,9 +12,11 @@ import java.util.Map;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.groovyrules.core.RuleAbstract;
+import org.groovyrules.core.RuleData;
 
 /**
  * Rule that is created directly from a string, not from a script.
+ * 
  * @author Steve Jones
  * @since 14-Jan-2006
  */
@@ -74,16 +76,14 @@ public class DirectRuleImpl extends RuleAbstract {
      * @param inputs
      * @return the returned data from the rules
      */
-    public List execute(List inputs) {
-        List returnValue = null;
-        Binding binding = createBinding(inputs);
+    public void execute(RuleData data) {
+        
+    	List returnValue = null;
+        Binding binding = createBinding(data);
         // Now we have to execute the class we have created
         Script scriptObject = InvokerHelper.createScript(rulesClass, binding);
         scriptObject.run();
         
-        returnValue = (List) binding.getVariable("data");
-        
-        return returnValue;
     }
 
     /**

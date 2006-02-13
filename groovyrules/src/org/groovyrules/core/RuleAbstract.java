@@ -1,6 +1,5 @@
 package org.groovyrules.core;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.rules.admin.Rule;
@@ -13,11 +12,11 @@ import javax.rules.admin.Rule;
 public abstract class RuleAbstract implements Rule{
     
     /**
-     * Execute the rules against the inputs
-     * @param inputs
+     * Execute the rule against the data
+     * @param data The data to process with the rule
      * @return the returned data from the rules
      */
-    public abstract List execute(List inputs);
+    public abstract void execute(RuleData data);
     
     /**
      * Set the properties for the rule in bulk
