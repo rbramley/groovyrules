@@ -35,7 +35,8 @@ public class StatelessRuleSessionImpl implements StatelessRuleSession {
 		
 		RuleData data = new RuleData(inputs);
 		res.runRules(data, filter);
-		return data.getObjectsWithFilter(filter);
+		data.applyObjectFilter(filter);
+		return data.getObjects();
 		
 	}
 	

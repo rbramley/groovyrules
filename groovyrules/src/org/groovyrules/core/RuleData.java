@@ -1,9 +1,3 @@
-/*
- * Created on 10-Feb-2006
- * 
- * TODO To change the template for this generated file go to Window -
- * Preferences - Java - Code Style - Code Templates
- */
 package org.groovyrules.core;
 
 import java.util.AbstractList;
@@ -19,11 +13,11 @@ public class RuleData extends AbstractList {
 
 	// TODO InvalidHandleException? Should use that here instead
 
-	// TODO Reset on ObjectFilter?
-	
+	// TODO Should this call reset() on ObjectFilter?
+
 	// This class is essentially a wrapper around two lists which
 	// are kept in sync.
-	
+
 	private ArrayList objects;
 
 	private ArrayList handles;
@@ -151,40 +145,75 @@ public class RuleData extends AbstractList {
 		return prev;
 	}
 
-	
-	public synchronized List getObjectsWithFilter(ObjectFilter filter) {
-		
-		if(filter==null) {
-			return getObjects();			
+	/**
+	 * Applies the specified ObjectFilter to this rule data, removing or
+	 * replacing any objects that the filter modifies.
+	 * <p>
+	 * Note that if the ObjectFilter returns an object that is not equal to the
+	 * original object (using an equals() check) then the object will be
+	 * replaced, but the handle will be unchanged.
+	 * <p>
+	 * If the ObjectFilter returns null for an object, that object is removed,
+	 * as is its handle.
+	 */
+	public synchronized void applyObjectFilter(ObjectFilter filter) {
+
+		// TODO Semantics for Handles if ObjectFilter returns modified object?
+
+		if (filter != null) {
+
+			for(int i=0; i<objects.size(); i++) {
+				
+				Object filteredObj = filter.filter(objects.get(i));
+				if(filteredObj==null) {
+					// Object removed by filter
+					objects.remove(i);
+					handles.remove(i);
+				}
+				else if(filteredObj.equals(objects.get(i))) {
+					// Object returned unmodified
+				}
+				else {
+					// Object returned by modified
+					objects.set(i, filteredObj);
+				}
+				
+			}
+			
 		}
-		else {
-			
+
+	}
+
+	public synchronized List getObjectsWithFilter(ObjectFilter filter) {
+
+		if (filter == null) {
+			return getObjects();
+		} else {
+
 			List outputList = new ArrayList();
-			
+
 			Iterator it = iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				Object nextObj = it.next();
 				Object filteredObj = filter.filter(nextObj);
-				if(filteredObj!=null) {
+				if (filteredObj != null) {
 					outputList.add(filteredObj);
 				}
 			}
-			
+
 			return outputList;
-			
+
 		}
-		
+
 	}
-	
-	
+
 	public synchronized List getObjectsOfType(final Class cls) {
-		
+
 		return getObjectsWithFilter(new ObjectFilter() {
 			public Object filter(Object object) {
-				if(cls.isAssignableFrom(object.getClass())) {
+				if (cls.isAssignableFrom(object.getClass())) {
 					return object;
-				}
-				else {
+				} else {
 					return null;
 				}
 			}
@@ -193,23 +222,20 @@ public class RuleData extends AbstractList {
 				// Nothing
 			}
 		});
-		
+
 	}
-	
-	
+
 	public Object getFirstObjectOfType(final Class cls) {
-		
+
 		List allObjs = getObjectsOfType(cls);
-		if(allObjs.size()>0) {
+		if (allObjs.size() > 0) {
 			return allObjs.get(0);
-		}
-		else {
+		} else {
 			return null;
 		}
-		
+
 	}
-	
-	
+
 	public static class HandleImpl implements Handle {
 
 	}

@@ -33,9 +33,7 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
      * Runs all rules in this execution set.
      */
     protected void runRules(RuleData data, ObjectFilter filter) {
-    	
-    	// TODO Use SessionData class for the objects - not just a list!
-    	
+    	    	
     	// Ensure that we use the default filter is none
     	// is specified and there is a default.
     	
@@ -67,7 +65,7 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     			// no filtering
     		}
     		else {
-    			// run the filter over the objects
+    			// TODO Run the filter over the objects?
     		}
     		
     	}

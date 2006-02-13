@@ -18,8 +18,7 @@ import javax.rules.RuleExecutionSetMetadata;
  */
 public class StatefulRuleSessionImpl implements javax.rules.StatefulRuleSession {
 
-	// TODO Session management
-	// TODO Handle management
+	// TODO Handling invalid sessions?
 	
 	/**
 	 * Map of Handles to objects.
