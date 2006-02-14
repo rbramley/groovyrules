@@ -167,9 +167,11 @@
 			changed).</li>
 		<li>Rules are combined to form <i>rule execution sets</i> using 
 			XML descriptors, tailored to be run in specific situations.</li>
-		<li>Currently supports only <i>stateless</i> rule
-			sessions, but is expected to additionally support <i>stateful</i>
-			session shortly.</li>
+		<li>Supports both <i>stateless</i> and <i>stateful</i> rule
+			sessions.</li>
+		<li>Optionally allows (via the <i>direct</i> rule service provider) 
+			rules to be passed in programatically at runtime, as Groovy 
+			fragments.</li>
 		<li>Little code stands between your application and your rules - so
 			any issues in use should be easily diagnosed and fixed.</li>
       </ul>
