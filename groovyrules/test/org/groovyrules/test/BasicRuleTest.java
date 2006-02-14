@@ -76,36 +76,49 @@ public class BasicRuleTest extends TestCase {
 		assertNotNull(statelessRuleSession);
 
 		// Create a Customer as specified by the TCK documentation.
-		Customer inputCustomer = new Customer("test");
+		Customer inputCustomer = new Customer("Customer");
 		inputCustomer.setCreditLimit(5000);
 
-		// Create an Invoice as specified by the TCK documentation.
-		Invoice inputInvoice = new Invoice("Invoice 1");
-		inputInvoice.setAmount(500);
-
+		// Create invoices as specified by the TCK documentation.
+		Invoice inputInvoice1 = new Invoice("Invoice 1");
+		inputInvoice1.setAmount(500);
+		Invoice inputInvoice2 = new Invoice("Invoice 2");
+		inputInvoice2.setAmount(200);
+		Invoice inputInvoice3 = new Invoice("Invoice 3");
+		inputInvoice3.setAmount(900);
+		
 		// Create a input list.
 		List input = new ArrayList();
 		input.add(inputCustomer);
-		input.add(inputInvoice);
+		input.add(inputInvoice1);
+		input.add(inputInvoice2);
+		input.add(inputInvoice3);
 
 		// Check the input
 		assertEquals(5000, inputCustomer.getCreditLimit());
-		assertEquals("unpaid", inputInvoice.getStatus());
-		assertEquals(500, inputInvoice.getAmount());
+		assertEquals("unpaid", inputInvoice1.getStatus());
+		assertEquals("unpaid", inputInvoice2.getStatus());
+		assertEquals("unpaid", inputInvoice3.getStatus());
+		assertEquals(500, inputInvoice1.getAmount());
 		
 		// Execute the rules without a filter.
 		List results = statelessRuleSession.executeRules(input);
 
 		// Get the results
-		assertEquals(2, results.size());
+		assertEquals(4, results.size());
 		Iterator itr = results.iterator();
 		Customer customer = (Customer)itr.next();
-		Invoice invoice = (Invoice)itr.next();
+		Invoice invoice1 = (Invoice)itr.next();
+		Invoice invoice2 = (Invoice)itr.next();
+		Invoice invoice3 = (Invoice)itr.next();
 		
 		// Check the results
-		assertEquals(4500, customer.getCreditLimit());
-		assertEquals("paid", invoice.getStatus());
-		assertEquals(500, invoice.getAmount());
+		assertEquals(4300, customer.getCreditLimit());
+		assertEquals("paid", invoice1.getStatus());
+		assertEquals(500, invoice1.getAmount());
+		assertEquals("paid", invoice2.getStatus());
+		assertEquals(200, invoice2.getAmount());
+		assertEquals("excessive", invoice3.getStatus());
 
 		// Release the session.
 		statelessRuleSession.release();

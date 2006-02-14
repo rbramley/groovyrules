@@ -1,6 +1,7 @@
 customer = data.getFirstObjectOfType(org.groovyrules.test.Customer);
-invoice = data.getFirstObjectOfType(org.groovyrules.test.Invoice);
 
-if(invoice.status == "unpaid" && invoice.amount > 500 ) { 
-	invoice.status = "excessive"; 
+data.getObjectsOfType(org.groovyrules.test.Invoice).each() { invoice |
+	if(invoice.status == "unpaid" && invoice.amount > 500 ) { 
+		invoice.status = "excessive"; 
+	}
 }
