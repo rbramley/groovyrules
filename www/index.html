@@ -269,18 +269,20 @@
 	code, in a file referenced above as <i>excessive_invoice.groovyrule</i>:
 	</p>
 	<pre>
-	customer = data.get(0);
-	invoice = data.get(1);
-	if(invoice.status == "unpaid" &amp;&amp; invoice.amount &gt; 500 ) { 
-		invoice.status = "excessive"; 
+	customer = data.getFirstObjectOfType(org.groovyrules.test.Customer);
+	
+	data.getObjectsOfType(org.groovyrules.test.Invoice).each() { invoice |
+		if(invoice.status == "unpaid" && invoice.amount &gt; 500 ) { 
+			invoice.status = "excessive"; 
+		}
 	}
 	</pre>
 	<p>
 	This simple example here assumes that the list of data passed in (as the
 	<code>data</code> variable, available automatically in the script) contains
-	the Customer instance as item 0, and the Invoice instance as item 1. The 
-	simple Groovy fragment (which looks a lot like Java in this example, without
-	the type information) checks if the invoice amount is more than $500. Note
+	one instance of a Customer and possibly several Invoice instances. The 
+	simple Groovy fragment (which demonstrates using Groovy's each() method on 
+	the list, passing in a closure) checks if the invoice amount is more than $500. Note
 	that the properties on the JavaBeans are accessed in Groovy as if they were
 	fields - Groovy will ensure the getXXX() methods are called correctly.
 	</p>
@@ -289,17 +291,25 @@
 	run if it needed to. It is defined as the file <i>pay_invoice.groovyrule</i>:
 	</p>
 	<pre>
-	customer = data.get(0);
-	invoice = data.get(1);
-	if(invoice.status == "unpaid") { 
-		customer.creditLimit = 
-			customer.creditLimit - invoice.amount;
-		invoice.status = "paid";
+	customer = data.getFirstObjectOfType(org.groovyrules.test.Customer);
+	
+	data.getObjectsOfType(org.groovyrules.test.Invoice).each() { invoice |
+		if(invoice.status == "unpaid") { 
+			customer.creditLimit = 
+				customer.creditLimit - invoice.amount;
+			invoice.status = "paid";
+		}
 	}
 	</pre>
 	<p>
 	Again this rule extracts the Customer and Invoice instances, and runs
-	some simple logic against them. 
+	some simple logic against them. This time, however, we demonstrate 
+	retrieving the objects based on their type, rather than their position 
+	in the list.
+	</p>
+	<p>
+	For more information about Groovy syntax, see the <a target="_blank" 
+	href="http://groovy.codehaus.org/">Groovy website</a>.
 	</p>
 	
     <h4>Calling Rules</h4>
@@ -425,17 +435,26 @@
 	  	    apart from those for Stateful rule sessions (which are not yet implemented - 4 test cases currently fail).</li>
 		  	<li>Includes additions by Steve Jones to allow rules to be passed directly 
 		  	from code, in addition to being defined in files (see the 
-		  	<a href="source/browse/groovyrules/groovyrules/test/org/groovyrules/test/DirectRulesTest.java?view=markup" target="_blank">DirectRuleTest</a>
+		  	<a href="source/browse/groovyrules/groovyrules/test/org/groovyrules/test/DirectRulesTest.java?view=markup" target="_blank"><tt>DirectRuleTest</tt></a>
 		  	test case).</li>
 	  	    <li>Internal refactoring, to split out file-based and direct rule implementation 
 	  	    code from the core. This should be transparent to the user.</li>
-	  	    <li>Creation of a new RuleServiceProvider implementation: org.groovyrules.directrules.DirectRuleServiceProviderImpl</li>
+	  	    <li>Creation of a new RuleServiceProvider implementation: <tt>org.groovyrules.directrules.DirectRuleServiceProviderImpl</tt></li>
 		  </ul>
 	    </li>
+	    <li><a href="/servlets/ProjectDocumentList?folderID=4821&expandFolder=4821&folderID=4821">Version Beta 3 - [13/02/2006]</a>
+		  <ul>
+		  	<li>Stateful JSR-94 API methods implemented.</li>
+	  	    <li>Passes all JSR-94 TCK test cases for standard file-based RuleServiceProvider. GroovyRules is now a fully JSR-94 compliant rule engine.</li>
+		  	<li><tt>RuleData</tt> class added to keep track of data provided to rules and stateful sessions. An instance of this class is the '<tt>data</tt>' 
+		  	property exposed to rules - it implements the <tt>java.util.List</tt> interface, and has convenience methods to retrieve objects of particular types.</li>
+		  	<li>Updated example and test rule definitions to demonstate the convenience methods on <tt>RuleData</tt> - 
+		  	see <a href="source/browse/groovyrules/groovyrules/test/org/groovyrules/test/rule1.groovyrule.java?view=markup" target="_blank">test rule 1</a>, 
+		  	<a href="source/browse/groovyrules/groovyrules/tck/tck_res_1_rule_1.groovyrule?view=markup" target="_blank">tck rule</a>.</li> 
+		  </ul>
+	    </li>
+	    
 	    <!--<li>[TO DO]</li>-->
-	    
-	    
-	    
 	    
       </ul>
     </blockquote>
