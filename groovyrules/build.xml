@@ -180,6 +180,13 @@
 			<test name="org.jcp.jsr94.tck.ClassLoaderTest" fork="yes" todir="${tck.report.dir}">
 			</test>
 		</junit>
+		
+		<junitreport todir="${tck.report.dir}">
+		  <fileset dir="${tck.report.dir}">
+		    <include name="TEST-*.xml"/>
+		  </fileset>
+		  <report format="frames" todir="${tck.report.dir}/report/html"/>
+		</junitreport>
 
 	</target>
 
