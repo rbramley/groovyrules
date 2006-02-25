@@ -4,6 +4,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.rules.Handle;
 import javax.rules.InvalidHandleException;
@@ -162,20 +163,29 @@ public class RuleData extends AbstractList {
 
 		if (filter != null) {
 
-			for(int i=0; i<objects.size(); i++) {
+			// Previous version did a loop using int and array size, this doesn't work as we are removing
+			// elements from the list.
+			ListIterator objectIterator = (ListIterator) objects.listIterator();
+			Iterator handleIterator = handles.iterator();
+			
+			while(objectIterator.hasNext()) {
 				
-				Object filteredObj = filter.filter(objects.get(i));
+				Object preFilter = objectIterator.next();
+				
+				Object filteredObj = filter.filter(preFilter);
+				handleIterator.next();
+				
 				if(filteredObj==null) {
 					// Object removed by filter
-					objects.remove(i);
-					handles.remove(i);
+					objectIterator.remove();
+					handleIterator.remove();
 				}
-				else if(filteredObj.equals(objects.get(i))) {
+				else if(filteredObj.equals(preFilter)) {
 					// Object returned unmodified
 				}
-				else {
-					// Object returned by modified
-					objects.set(i, filteredObj);
+				else {				
+					// Object returned by filter was modified
+					objectIterator.set(filteredObj);
 				}
 				
 			}
