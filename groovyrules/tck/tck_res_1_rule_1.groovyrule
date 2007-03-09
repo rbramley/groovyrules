@@ -2,7 +2,7 @@
 customer = data.getFirstObjectOfType(org.jcp.jsr94.tck.model.Customer);
 
 // For each invoice, check if it's unpaid
-data.getObjectsOfType(org.jcp.jsr94.tck.model.Invoice).each() { invoice |
+data.getObjectsOfType(org.jcp.jsr94.tck.model.Invoice).each() { invoice ->
 		if(invoice.status == "unpaid") { 
 			customer.creditLimit = 
 				customer.creditLimit - invoice.amount;
