@@ -115,7 +115,7 @@
 		<!-- Add junitreport -->
 	</target>
 
-	<target name="dist" depends="clean,compile,test,javadoc">
+	<target name="dist" depends="clean,compile,test,javadoc" description="Create GroovyRules distribution">
 		<mkdir dir="${dist.dir}" />
 		<!-- Jar up the distribution -->
 		<jar destfile="${dist.dir}/${dist.name}.jar" basedir="${build.classes.dir}" />
@@ -152,12 +152,7 @@
 	</patternset>
 	-->
 
-	<target name="tck.run">
-		<!--<ant antfile="tck/run_tck.xml" target="tck.run"/>-->
-		<!--<java classpathref="tck.classpath"
-			classname="">
-		</java>
-		-->
+	<target name="tck.run" depends="dist" description="Run TCK tests">
 
 		<mkdir dir="${tck.report.dir}" />
 

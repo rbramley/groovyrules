@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="groovyrules/test"/>
+	<classpathentry kind="src" path="groovyrules/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="groovyrules/tck/jsr94-tck.jar"/>
+	<classpathentry kind="lib" path="groovyrules/lib/jsr94.jar"/>
+	<classpathentry kind="lib" path="groovyrules/lib/junit.jar"/>
+	<classpathentry kind="lib" path="groovyrules/lib/sigtest.jar"/>
+	<classpathentry kind="lib" path="groovyrules/lib/groovy-all-1.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
