@@ -5,7 +5,7 @@
 	<name>Invoice Handling Rule Set</name>
 	<description>Handles invoices for customers</description>
 
-	<ruleroot>C:/Development/eclipse/groovyrules/groovyrules/groovyrules/tck</ruleroot>
+	<ruleroot>C:\Documents and Settings\rnewsome\My Documents\Projects\GroovyRulesWorkspace\groovyrules\groovyrules\tck\</ruleroot>
 	<rules>
 		<rule>tck_res_1_rule_1.groovyrule</rule>
 	</rules>
