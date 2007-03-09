@@ -12,7 +12,7 @@ import javax.rules.ObjectFilter;
 import javax.rules.RuleExecutionSetMetadata;
 
 /**
- * 
+ * Implementation of a <tt>StatefullRuleSession</tt>. 
  * 
  * @author Rob Newsome
  */
@@ -98,7 +98,7 @@ public class StatefulRuleSessionImpl implements javax.rules.StatefulRuleSession 
 	public List getObjects() throws RemoteException,
 			InvalidRuleSessionException {
 
-		return session.getObjects();
+		return getObjects(null);
 		
 	}
 	
@@ -108,7 +108,22 @@ public class StatefulRuleSessionImpl implements javax.rules.StatefulRuleSession 
 	public List getObjects(ObjectFilter filter) throws RemoteException,
 			InvalidRuleSessionException {
 
-		return session.getObjectsWithFilter(filter);
+		
+		if(filter!=null) {
+			// Use specified filter
+			return session.getObjectsWithFilter(filter);
+		}
+		else {
+			ObjectFilter defaultObjectFilter = res.getDefaultObjectFilterInstance();
+			if(defaultObjectFilter!=null) {
+				// Use default filter
+				return session.getObjectsWithFilter(defaultObjectFilter);
+			}
+			else {
+				// No filter required
+				return session.getObjects();
+			}
+		}
 		
 	}
 	
@@ -141,9 +156,8 @@ public class StatefulRuleSessionImpl implements javax.rules.StatefulRuleSession 
 	public void executeRules() throws RemoteException,
 			InvalidRuleSessionException {
 		
-		res.runRules(session, null);
+		res.runRules(session);
 		
-
 	}
 	
 	/* (non-Javadoc)

@@ -194,6 +194,9 @@ public class RuleData extends AbstractList {
 
 	}
 
+	/**
+	 * Returns objects passing the specified filter - does NOT update this RuleData instance.
+	 */
 	public synchronized List getObjectsWithFilter(ObjectFilter filter) {
 
 		if (filter == null) {

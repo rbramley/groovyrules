@@ -34,8 +34,23 @@ public class StatelessRuleSessionImpl implements StatelessRuleSession {
 			throws InvalidRuleSessionException, RemoteException {
 		
 		RuleData data = new RuleData(inputs);
-		res.runRules(data, filter);
-		data.applyObjectFilter(filter);
+		res.runRules(data);
+		
+		if(filter!=null) {
+			// Run the specified filter
+			data.applyObjectFilter(filter);
+		}
+		else {
+			ObjectFilter defaultFilter = res.getDefaultObjectFilterInstance();
+			if(defaultFilter!=null) {
+				// Run the default filter
+				data.applyObjectFilter(defaultFilter);
+			}
+			else {
+				// No filter needs running
+			}
+		}
+
 		return data.getObjects();
 		
 	}

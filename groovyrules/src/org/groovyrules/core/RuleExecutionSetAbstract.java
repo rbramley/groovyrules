@@ -30,45 +30,38 @@ public abstract class RuleExecutionSetAbstract implements RuleExecutionSet {
     protected Map properties = new HashMap();
     
     /**
-     * Runs all rules in this execution set.
+     * Returns an instantiated default object filter, or null if none is specified.
+     * 
+     * @throws RuntimeException If can't instantiate the filter.
      */
-    protected void runRules(RuleData data, ObjectFilter filter) {
-    	    	
-    	// Ensure that we use the default filter is none
-    	// is specified and there is a default.
-    	
-    	if(filter==null && defaultFilterClass!=null) {
-    		
-    		// Try to build a new default filter and use that
-    		try {
-    			ObjectFilter defaultFilter = (ObjectFilter)Class.forName(defaultFilterClass).newInstance();
-    			runRules(data, defaultFilter);
-    		}
-    		catch(Exception e) {
-    			throw new RuntimeException("Unable to construct default object filter instance", e);
-    		}
-    		
+    public ObjectFilter getDefaultObjectFilterInstance() {
+    	if(defaultFilterClass==null) {
+    		return null;
     	}
     	else {
-    			
-    		Iterator rules = getRules().iterator();
-    		
-    		while(rules.hasNext()) {
-    			RuleAbstract rule = (RuleAbstract)rules.next();	
-                rule.setProperties(this.properties);
-    			rule.execute(data);
-    		}
-    
-    		// Determine if filtering is required
-    		
-    		if(filter==null) {
-    			// no filtering
-    		}
-    		else {
-    			// TODO Run the filter over the objects?
-    		}
-    		
+			try {
+				ObjectFilter defaultFilter = (ObjectFilter)Class.forName(defaultFilterClass).newInstance();
+				return defaultFilter;
+			}
+			catch(Exception e) {
+				throw new RuntimeException("Unable to construct default object filter instance", e);
+			}
     	}
+    }
+    
+    
+    /**
+     * Runs all rules in this execution set.
+     */
+    protected void runRules(RuleData data) {
+    	    	    			
+		Iterator rules = getRules().iterator();
+		
+		while(rules.hasNext()) {
+			RuleAbstract rule = (RuleAbstract)rules.next();	
+            rule.setProperties(this.properties);
+			rule.execute(data);
+		}
     	
     }
     
